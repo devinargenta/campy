@@ -1,160 +1,102 @@
-//
 //  ContentView.swift
 //  camprey
 //
 //  Created by Devin Argenta on 2/8/23.
 //
 
-
-import SwiftUI
-import Foundation
-import AVFoundation
-import AppKit
 import AVKit
+import AppKit
+import Foundation
+import SwiftUI
 
-// App -> Scene -> PlayerUIView
-// -> Camera ->
-class Camera: ObservableObject {
-    @ObservedObject var env = Env();
-    
-    internal init(permissionGranted: Bool = false) {
-        self.permissionGranted = permissionGranted
-       
-        
-    }
-    
-    
-    @Published var permissionGranted: Bool = false // Flag for permission
-    
-    private let sessionQueue = DispatchQueue.main
-    func checkPermission() -> Bool {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-            // Permission has been granted before
-        case .authorized:
-            print("authorized")
-            permissionGranted = true
-            
-            // Permission has not been requested yet
-        case .notDetermined:
-            print("not determined")
-            requestPermission()
-            
-        default:
-            print("default");
-            permissionGranted = false
-        }
-        return permissionGranted
-        
-    }
-    
-    
-    
-
-    func requestPermission() {
-        sessionQueue.suspend()
-        return AVCaptureDevice.requestAccess(for: .video) { granted in
-            self.sessionQueue.async {
-                self.permissionGranted = granted
-                self.sessionQueue.resume()
-            }
-        }
-    }
-    
-}
-
+let validDeviceTypes: [AVCaptureDevice.DeviceType] = [
+  .externalUnknown, .deskViewCamera, .builtInWideAngleCamera,
+]
 class PreviewView: NSView {
-    @StateObject private var camera: Camera = Camera();
-    
-    init(captureSession: AVCaptureSession) {
-   
-        super.init(frame: .zero)
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-     
+  init(captureSession: AVCaptureSession) {
+    super.init(frame: .zero)
+    previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+    setupLayer()
+  }
 
-        setupLayer()
-    }
+  func setupLayer() {
 
-    func setupLayer() {
-        previewLayer?.frame = self.frame
-        previewLayer?.contentsGravity = .resizeAspectFill
-        previewLayer?.videoGravity = .resizeAspectFill
-        previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
-        previewLayer?.session?.startRunning()
-        layer = previewLayer
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var previewLayer: AVCaptureVideoPreviewLayer?
+    previewLayer?.contentsGravity = .resizeAspectFill
+    previewLayer?.videoGravity = .resizeAspectFill
+    previewLayer?.connection?.automaticallyAdjustsVideoMirroring = true
+    layer = previewLayer
+  }
 
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  var previewLayer: AVCaptureVideoPreviewLayer?
 }
 
 struct PreviewViewUIController: NSViewRepresentable {
-    private var captureSession: AVCaptureSession;
-    init(captureSession: AVCaptureSession) {
-        self.captureSession = captureSession;
-    }
-    func makeNSView(context: NSViewRepresentableContext<PreviewViewUIController>) -> PreviewView {
-        return PreviewView(captureSession: self.captureSession)
-    }
-    
-    
+  private var captureSession: AVCaptureSession
+  init(captureSession: AVCaptureSession) {
+    self.captureSession = captureSession
+  }
+  func makeNSView(context: NSViewRepresentableContext<PreviewViewUIController>) -> PreviewView {
+    PreviewView(captureSession: self.captureSession)
+  }
 
-    func updateNSView(_ uiView: PreviewView, context: NSViewRepresentableContext<PreviewViewUIController>) {
+  func updateNSView(
+    _ uiView: PreviewView, context: NSViewRepresentableContext<PreviewViewUIController>
+  ) {}
 
-    }
-    
-    typealias NSViewType = PreviewView
+  typealias NSViewType = PreviewView
 }
 
-class Env: ObservableObject {
-    @Published var captureSession = AVCaptureSession();
-    
-    
+struct SettingsButton: View {
+  private var camera: Camera
+  init(camera: Camera) {
+    self.camera = camera
+  }
+  var body: some View {
+    Button {
+      self.camera.toggle()
+    } label: {
+      Label("Settings", systemImage: "gear").opacity(1).foregroundColor(.white).backgroundStyle(
+        .ultraThickMaterial
+      ).font(.headline)
+    }
+  }
 }
 
 struct ContentView: View {
-    @ObservedObject private var env = Env();
-    init() {
-        setupSession()
-    }
-    func setupSession() {
-        env.captureSession.beginConfiguration()
-        let videoDevice = AVCaptureDevice.DiscoverySession.init(deviceTypes: [ .externalUnknown, .deskViewCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice.devices.first!), env.captureSession.canAddInput(videoDeviceInput) else { return }
-        env.captureSession.addInput(videoDeviceInput)
-        let output = AVCaptureVideoDataOutput()
-        guard env.captureSession.canAddOutput(output) else { return }
-        env.captureSession.sessionPreset = .hd1280x720
-        env.captureSession.addOutput(output)
-        env.captureSession.commitConfiguration()
-    }
-    var body: some View {
-        VStack {
-            PreviewViewUIController(captureSession: env.captureSession)
-                .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { notification in
-                    
-                    if notification.object != nil {
-                        print(env.captureSession.outputs)
-                        env.captureSession.startRunning()
-                    }
-                }.onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { notification in
-                    
-                    if notification.object != nil {
-                        env.captureSession.stopRunning()
-                    }
-                }
- 
+  @ObservedObject private var camera = Camera()
 
+  let didBecomeKeyNotification = NotificationCenter.default.publisher(
+    for: NSWindow.didBecomeKeyNotification)
+  let didResignKeyNotification = NotificationCenter.default.publisher(
+    for: NSWindow.didResignKeyNotification)
+  var body: some View {
+
+    PreviewViewUIController(captureSession: camera.captureSession)
+
+      .cornerRadius(5, antialiased: true)
+      .padding(.all, 5)
+      .background(Color.mint.opacity(0.5)).frame(width: 500, height: 281)
+
+      .onReceive(didBecomeKeyNotification) { notification in
+        DispatchQueue.main.async {
+          camera.captureSession.startRunning()
+        }
+      }.onReceive(didResignKeyNotification) { notification in
+        DispatchQueue.main.async {
+          camera.captureSession.stopRunning()
         }
 
-    }
-}
+      }.task {
+        DispatchQueue.main.async {
+          camera.checkPermission()
+        }
+      }.overlay(alignment: .bottomTrailing) {
+        SettingsButton(camera: camera).padding(0)
+      }
+  }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
 }

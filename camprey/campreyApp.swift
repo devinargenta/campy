@@ -2,40 +2,20 @@
 //  campreyApp.swift
 //  camprey
 //
-    //  Created by Devin Argenta on 2/8/23.
+//  Created by Devin Argenta on 2/8/23.
 //
 
-import SwiftUI
 import AVFoundation
-
+import SwiftUI
 
 @main
 struct campreyApp: App {
-    @State var isInserted: Bool = true;
-    @State private var hide: Bool = false;
-    var body: some Scene {
-  
-        MenuBarExtra("PISS") {
-            VStack{
-                
-                ContentView()
-            }.scaledToFill()
-            
-            
-            
-        }.menuBarExtraStyle(.window)
-
-
-
+  var body: some Scene {
+    MenuBarExtra {
+      ContentView()
+    } label: {
+      Text("CAM SLUT 9000")
     }
-}
-
-
-struct Previews_campreyApp_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-        ContentView().frame(width: 500, height: 500)
-
-    }
+    .menuBarExtraStyle(.window).windowResizability(.contentSize)
+  }
 }

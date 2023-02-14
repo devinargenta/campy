@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F77EE299BDF7500B5EFD2 /* Camera.swift */; };
 		9EE27639299427130014163B /* campreyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* campreyApp.swift */; };
 		9EE2763B299427130014163B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2763A299427130014163B /* ContentView.swift */; };
 		9EE2763D299427130014163B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763C299427130014163B /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E0F77EE299BDF7500B5EFD2 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		9EE27635299427130014163B /* camprey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = camprey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EE27638299427130014163B /* campreyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = campreyApp.swift; sourceTree = "<group>"; };
 		9EE2763A299427130014163B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				9EE27638299427130014163B /* campreyApp.swift */,
 				9EE2763A299427130014163B /* ContentView.swift */,
 				9EE2763C299427130014163B /* Assets.xcassets */,
+				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
 				9EE27641299427130014163B /* camprey.entitlements */,
 				9EE2763E299427130014163B /* Preview Content */,
 			);
@@ -145,6 +148,7 @@
 			files = (
 				9EE2763B299427130014163B /* ContentView.swift in Sources */,
 				9EE27639299427130014163B /* campreyApp.swift in Sources */,
+				9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,10 +275,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = camprey/camprey.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"camprey/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = TM3VXQ389G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = camprey/Info.plist;
@@ -302,10 +308,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = camprey/camprey.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"camprey/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = TM3VXQ389G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = camprey/Info.plist;
