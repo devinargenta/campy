@@ -17,12 +17,12 @@
 
 /* Begin PBXFileReference section */
 		9E0F77EE299BDF7500B5EFD2 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		9EE27635299427130014163B /* camprey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = camprey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EE27635299427130014163B /* campy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = campy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EE27638299427130014163B /* campreyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = campreyApp.swift; sourceTree = "<group>"; };
 		9EE2763A299427130014163B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9EE2763C299427130014163B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EE2763F299427130014163B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9EE27641299427130014163B /* camprey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = camprey.entitlements; sourceTree = "<group>"; };
+		9EE27641299427130014163B /* campy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = campy.entitlements; sourceTree = "<group>"; };
 		9EE27647299427740014163B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,7 +40,7 @@
 		9EE2762C299427130014163B = {
 			isa = PBXGroup;
 			children = (
-				9EE27637299427130014163B /* camprey */,
+				9EE27637299427130014163B /* campy */,
 				9EE27636299427130014163B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +48,12 @@
 		9EE27636299427130014163B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9EE27635299427130014163B /* camprey.app */,
+				9EE27635299427130014163B /* campy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9EE27637299427130014163B /* camprey */ = {
+		9EE27637299427130014163B /* campy */ = {
 			isa = PBXGroup;
 			children = (
 				9EE27647299427740014163B /* Info.plist */,
@@ -61,10 +61,10 @@
 				9EE2763A299427130014163B /* ContentView.swift */,
 				9EE2763C299427130014163B /* Assets.xcassets */,
 				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
-				9EE27641299427130014163B /* camprey.entitlements */,
+				9EE27641299427130014163B /* campy.entitlements */,
 				9EE2763E299427130014163B /* Preview Content */,
 			);
-			path = camprey;
+			path = campy;
 			sourceTree = "<group>";
 		};
 		9EE2763E299427130014163B /* Preview Content */ = {
@@ -78,9 +78,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9EE27634299427130014163B /* camprey */ = {
+		9EE27634299427130014163B /* campy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "camprey" */;
+			buildConfigurationList = 9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "campy" */;
 			buildPhases = (
 				9EE27631299427130014163B /* Sources */,
 				9EE27632299427130014163B /* Frameworks */,
@@ -90,9 +90,9 @@
 			);
 			dependencies = (
 			);
-			name = camprey;
+			name = campy;
 			productName = camprey;
-			productReference = 9EE27635299427130014163B /* camprey.app */;
+			productReference = 9EE27635299427130014163B /* campy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9EE27630299427130014163B /* Build configuration list for PBXProject "camprey" */;
+			buildConfigurationList = 9EE27630299427130014163B /* Build configuration list for PBXProject "campy" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9EE27634299427130014163B /* camprey */,
+				9EE27634299427130014163B /* campy */,
 			);
 		};
 /* End PBXProject section */
@@ -275,16 +275,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = camprey/camprey.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = TM3VXQ389G;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = camprey/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Camprey;
+				INFOPLIST_KEY_CFBundleDisplayName = campy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Peep Ya Faces : )";
@@ -294,8 +294,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.camprey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.campy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -308,16 +309,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = camprey/camprey.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = TM3VXQ389G;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = camprey/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Camprey;
+				INFOPLIST_KEY_CFBundleDisplayName = campy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Peep Ya Faces : )";
@@ -327,8 +328,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.camprey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.campy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -337,7 +339,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9EE27630299427130014163B /* Build configuration list for PBXProject "camprey" */ = {
+		9EE27630299427130014163B /* Build configuration list for PBXProject "campy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9EE27642299427130014163B /* Debug */,
@@ -346,7 +348,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "camprey" */ = {
+		9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "campy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9EE27645299427130014163B /* Debug */,
