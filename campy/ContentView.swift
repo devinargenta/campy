@@ -9,10 +9,8 @@ import AppKit
 import Foundation
 import SwiftUI
 
-let validDeviceTypes: [AVCaptureDevice.DeviceType] = [
-  .externalUnknown, .deskViewCamera, .builtInWideAngleCamera,
-]
 class PreviewView: NSView {
+
   init(captureSession: AVCaptureSession) {
     super.init(frame: .zero)
     previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -50,22 +48,6 @@ struct PreviewViewUIController: NSViewRepresentable {
   typealias NSViewType = PreviewView
 }
 
-struct SettingsButton: View {
-  private var camera: Camera
-  init(camera: Camera) {
-    self.camera = camera
-  }
-  var body: some View {
-    Button {
-      self.camera.toggle()
-    } label: {
-      Label("Settings", systemImage: "gear").opacity(1).foregroundColor(.white).backgroundStyle(
-        .ultraThickMaterial
-      ).font(.headline)
-    }
-  }
-}
-
 struct ContentView: View {
   @ObservedObject private var camera = Camera()
 
@@ -76,25 +58,27 @@ struct ContentView: View {
   var body: some View {
 
     PreviewViewUIController(captureSession: camera.captureSession)
-
       .cornerRadius(5, antialiased: true)
       .padding(.all, 5)
-      .background(Color.mint.opacity(0.5)).frame(width: 500, height: 281)
-
+      .background(
+        Color.mint.opacity(0.5)
+      )
+      .frame(width: 500, height: 281)
       .onReceive(didBecomeKeyNotification) { notification in
         DispatchQueue.main.async {
-          camera.captureSession.startRunning()
+          camera.toggle()
         }
       }.onReceive(didResignKeyNotification) { notification in
         DispatchQueue.main.async {
-          camera.captureSession.stopRunning()
+          camera.toggle()
         }
 
       }.task {
         DispatchQueue.main.async {
           camera.checkPermission()
         }
-      }.overlay(alignment: .bottomTrailing) {
+      }
+      .overlay(alignment: .bottomTrailing) {
         SettingsButton(camera: camera).padding(0)
       }
   }

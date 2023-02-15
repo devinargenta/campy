@@ -14,7 +14,9 @@ struct campreyApp: App {
     MenuBarExtra {
       ContentView()
     } label: {
-      Text("CAM 9000")
+        VStack {
+          Text("PISS1")
+        }
     }
     .menuBarExtraStyle(.window).windowResizability(.contentSize)
   }
