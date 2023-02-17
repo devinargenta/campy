@@ -9,22 +9,21 @@
 /* Begin PBXBuildFile section */
 		9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F77EE299BDF7500B5EFD2 /* Camera.swift */; };
 		9E326ADB299D1AE50086F3E2 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */; };
-		9EE27639299427130014163B /* campreyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* campreyApp.swift */; };
+		9EE27639299427130014163B /* cambar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* cambar.swift */; };
 		9EE2763B299427130014163B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2763A299427130014163B /* ContentView.swift */; };
 		9EE2763D299427130014163B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763C299427130014163B /* Assets.xcassets */; };
 		9EE27640299427130014163B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763F299427130014163B /* Preview Assets.xcassets */; };
-		9EE27648299427E10014163B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EE27647299427740014163B /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9E0F77EE299BDF7500B5EFD2 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
-		9EE27635299427130014163B /* campy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = campy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EE27638299427130014163B /* campreyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = campreyApp.swift; sourceTree = "<group>"; };
+		9EE27635299427130014163B /* cambar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cambar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EE27638299427130014163B /* cambar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cambar.swift; sourceTree = "<group>"; };
 		9EE2763A299427130014163B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9EE2763C299427130014163B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EE2763F299427130014163B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9EE27641299427130014163B /* campy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = campy.entitlements; sourceTree = "<group>"; };
+		9EE27641299427130014163B /* cambar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cambar.entitlements; sourceTree = "<group>"; };
 		9EE27647299427740014163B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +41,7 @@
 		9EE2762C299427130014163B = {
 			isa = PBXGroup;
 			children = (
-				9EE27637299427130014163B /* campy */,
+				9EE27637299427130014163B /* cambar */,
 				9EE27636299427130014163B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,24 +49,24 @@
 		9EE27636299427130014163B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9EE27635299427130014163B /* campy.app */,
+				9EE27635299427130014163B /* cambar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9EE27637299427130014163B /* campy */ = {
+		9EE27637299427130014163B /* cambar */ = {
 			isa = PBXGroup;
 			children = (
 				9EE27647299427740014163B /* Info.plist */,
-				9EE27638299427130014163B /* campreyApp.swift */,
+				9EE27638299427130014163B /* cambar.swift */,
 				9EE2763A299427130014163B /* ContentView.swift */,
 				9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */,
 				9EE2763C299427130014163B /* Assets.xcassets */,
 				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
-				9EE27641299427130014163B /* campy.entitlements */,
+				9EE27641299427130014163B /* cambar.entitlements */,
 				9EE2763E299427130014163B /* Preview Content */,
 			);
-			path = campy;
+			path = cambar;
 			sourceTree = "<group>";
 		};
 		9EE2763E299427130014163B /* Preview Content */ = {
@@ -81,9 +80,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9EE27634299427130014163B /* campy */ = {
+		9EE27634299427130014163B /* cambar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "campy" */;
+			buildConfigurationList = 9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "cambar" */;
 			buildPhases = (
 				9EE27631299427130014163B /* Sources */,
 				9EE27632299427130014163B /* Frameworks */,
@@ -93,9 +92,9 @@
 			);
 			dependencies = (
 			);
-			name = campy;
+			name = cambar;
 			productName = camprey;
-			productReference = 9EE27635299427130014163B /* campy.app */;
+			productReference = 9EE27635299427130014163B /* cambar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -113,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9EE27630299427130014163B /* Build configuration list for PBXProject "campy" */;
+			buildConfigurationList = 9EE27630299427130014163B /* Build configuration list for PBXProject "cambar" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -126,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9EE27634299427130014163B /* campy */,
+				9EE27634299427130014163B /* cambar */,
 			);
 		};
 /* End PBXProject section */
@@ -138,7 +137,6 @@
 			files = (
 				9EE27640299427130014163B /* Preview Assets.xcassets in Resources */,
 				9EE2763D299427130014163B /* Assets.xcassets in Resources */,
-				9EE27648299427E10014163B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +149,7 @@
 			files = (
 				9E326ADB299D1AE50086F3E2 /* SettingsButton.swift in Sources */,
 				9EE2763B299427130014163B /* ContentView.swift in Sources */,
-				9EE27639299427130014163B /* campreyApp.swift in Sources */,
+				9EE27639299427130014163B /* cambar.swift in Sources */,
 				9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,17 +276,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = campy/campy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = cambar/cambar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TM3VXQ389G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = campy/Info.plist;
+				INFOPLIST_FILE = cambar/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "campy menu cam";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -299,7 +297,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.campy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,17 +311,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = campy/campy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = cambar/cambar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TM3VXQ389G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = campy/Info.plist;
+				INFOPLIST_FILE = cambar/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "campy menu cam";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -334,7 +332,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.campy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -345,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9EE27630299427130014163B /* Build configuration list for PBXProject "campy" */ = {
+		9EE27630299427130014163B /* Build configuration list for PBXProject "cambar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9EE27642299427130014163B /* Debug */,
@@ -354,7 +352,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "campy" */ = {
+		9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "cambar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9EE27645299427130014163B /* Debug */,

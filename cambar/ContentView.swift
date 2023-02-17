@@ -8,6 +8,7 @@ import AVKit
 import AppKit
 import Foundation
 import SwiftUI
+import VisionKit
 
 class PreviewView: NSView {
 
@@ -18,7 +19,6 @@ class PreviewView: NSView {
   }
 
   func setupLayer() {
-
     previewLayer?.contentsGravity = .resizeAspectFill
     previewLayer?.videoGravity = .resizeAspectFill
     previewLayer?.connection?.automaticallyAdjustsVideoMirroring = true
@@ -55,22 +55,19 @@ struct ContentView: View {
     for: NSWindow.didBecomeKeyNotification)
   let didResignKeyNotification = NotificationCenter.default.publisher(
     for: NSWindow.didResignKeyNotification)
+    
+    let d = NotificationCenter()
   var body: some View {
-
     PreviewViewUIController(captureSession: camera.captureSession)
       .cornerRadius(5, antialiased: true)
-      .padding(.all, 5)
-      .background(
-        Color.mint.opacity(0.5)
-      )
       .frame(width: 500, height: 281)
       .onReceive(didBecomeKeyNotification) { notification in
         DispatchQueue.main.async {
-          camera.toggle()
+            camera.toggle(desired: .on)
         }
       }.onReceive(didResignKeyNotification) { notification in
         DispatchQueue.main.async {
-          camera.toggle()
+            camera.toggle(desired: .off)
         }
 
       }.task {
@@ -79,7 +76,14 @@ struct ContentView: View {
         }
       }
       .overlay(alignment: .bottomTrailing) {
-        SettingsButton(camera: camera).padding(0)
+          Text("lgtm").offset(x: -10, y: -10).font(.callout).foregroundColor(.mint).fontWeight(.bold)
+//          SettingsButton(camera: camera).padding(12).buttonStyle(.plain).onHover { curs in
+//              if curs == true {
+//                  NSCursor.pointingHand.push()
+//              } else {
+//                  NSCursor.pointingHand.pop()
+//              }
+//          }
       }
   }
 

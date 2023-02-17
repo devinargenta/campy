@@ -14,16 +14,10 @@ struct SettingsButton: View {
   }
   var body: some View {
     Button {
-      self.camera.toggle()
+        self.camera.toggle(desired: camera.captureSession.isRunning ? .off : .on)
     } label: {
-      Label("Settings", systemImage: "gear")
-        .opacity(1)
-        .foregroundColor(.white)
-        .backgroundStyle(
-          .ultraThickMaterial
-        )
-        .font(.headline)
-    }
+        Image(systemName: "gear").backgroundStyle(.opacity(0))
+    }.backgroundStyle(.opacity(0))
   }
 }
 

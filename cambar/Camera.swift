@@ -1,6 +1,10 @@
 import AVKit
 import Foundation
 
+
+enum CaptureState {
+    case on, off
+}
 class Camera: ObservableObject {
   @Published var captureSession = AVCaptureSession()
   @Published var permissionGranted: Bool = false  // Flag for permission
@@ -17,13 +21,15 @@ class Camera: ObservableObject {
 
   }
 
-  func toggle() {
-    if permissionGranted != true { return }
-    if captureSession.isRunning == true {
-      captureSession.stopRunning()
-    } else {
-      captureSession.startRunning()
-    }
+    func toggle(desired: CaptureState) {
+        switch desired {
+        case .on:
+            self.captureSession.startRunning()
+            break;
+        case .off:
+            self.captureSession.stopRunning()
+            break;
+        }
   }
 
   func createSession() {
