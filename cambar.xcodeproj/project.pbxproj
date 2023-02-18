@@ -12,7 +12,6 @@
 		9EE27639299427130014163B /* cambar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* cambar.swift */; };
 		9EE2763B299427130014163B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2763A299427130014163B /* ContentView.swift */; };
 		9EE2763D299427130014163B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763C299427130014163B /* Assets.xcassets */; };
-		9EE27640299427130014163B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763F299427130014163B /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,7 +134,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EE27640299427130014163B /* Preview Assets.xcassets in Resources */,
 				9EE2763D299427130014163B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
