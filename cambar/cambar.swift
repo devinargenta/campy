@@ -22,7 +22,6 @@ struct cambar: App {
             .buttonStyle(.borderless)
             .contextMenu {
                 Text("Double tap to screenshot")
-                Text("cmd+x to close window")
                 Button("Quit") {
                     NSApp.terminate(self)
                 }
