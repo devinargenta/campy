@@ -42,6 +42,7 @@ class Camera: ObservableObject {
     private var validDeviceTypes: [AVCaptureDevice.DeviceType] = [
         .externalUnknown, .deskViewCamera, .builtInWideAngleCamera,
     ]
+    
     private var sessionQueue = DispatchQueue.main
 
     init() {
@@ -70,7 +71,7 @@ class Camera: ObservableObject {
                 deviceTypes: self.validDeviceTypes,
                 mediaType: .video,
                 position: .unspecified)
-
+            
             guard let device = videoDevice.devices.first else { return }
             guard let videoDeviceInput = try? AVCaptureDeviceInput(device: device),
                   captureSession.canAddInput(videoDeviceInput)

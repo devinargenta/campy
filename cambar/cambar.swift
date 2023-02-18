@@ -13,31 +13,26 @@ struct cambar: App {
     let icon = NSImage(imageLiteralResourceName: "MenuIcon")
     var body: some Scene {
         MenuBarExtra {
-            
             ZStack {
-  
                 ContentView()
-           
-                .overlay(alignment: .topTrailing) {
-                    Button {
-                        NSApplication.shared.keyWindow?.close()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .frame(width: 40, height: 40)
-                    }.focusable(false).keyboardShortcut("x")
+                    .zIndex(1)
+                Text("connecting to ur lil camera?")
+                    .zIndex(0)
+            }
+            .buttonStyle(.borderless)
+            .contextMenu {
+                Text("Double tap to screenshot")
+                Text("cmd+x to close window")
+                Button("Quit") {
+                    NSApp.terminate(self)
                 }
-                
-            }.buttonStyle(.borderless).contextMenu{
-                    Text("Double tap to screenshot")
-                    Text("cmd+x to quit")
             }
         } label: {
             Image(nsImage: icon.self).task {
                 icon.isTemplate = true
             }
-                          
-        }.menuBarExtraStyle(.window).windowResizability(.contentSize)
-       
+
+        }.menuBarExtraStyle(.window)
+            .windowResizability(.contentSize)
     }
 }

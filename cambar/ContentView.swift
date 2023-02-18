@@ -20,8 +20,13 @@ class PreviewView: NSView {
     func setupLayer() {
         previewLayer?.contentsGravity = .resizeAspectFill
         previewLayer?.videoGravity = .resizeAspectFill
-        previewLayer?.connection?.automaticallyAdjustsVideoMirroring = true
+        previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
+        previewLayer?.connection?.isVideoMirrored = true
+ 
         layer = previewLayer
+  
+
+ 
     }
 
     @available(*, unavailable)
@@ -32,6 +37,19 @@ class PreviewView: NSView {
     var previewLayer: AVCaptureVideoPreviewLayer?
 }
 
+struct ScreenshotOverlay: View {
+    @Binding var doubletapped: Bool;
+    var body: some View {
+        ZStack(alignment: .top) {
+                RoundedRectangle(cornerRadius: 5)
+                    .strokeBorder(lineWidth: doubletapped ? 5 : 0, antialiased: true)
+                    .animation(.spring().speed(2), value: doubletapped)
+                    .foregroundColor(.mint)
+
+        }.ignoresSafeArea()
+    }
+}
+
 struct PreviewViewUIController: NSViewRepresentable {
     private var captureSession: AVCaptureSession
     init(captureSession: AVCaptureSession) {
@@ -40,7 +58,6 @@ struct PreviewViewUIController: NSViewRepresentable {
 
     func makeNSView(context: NSViewRepresentableContext<PreviewViewUIController>) -> PreviewView {
         PreviewView(captureSession: captureSession)
-
     }
 
     func updateNSView(
@@ -51,7 +68,8 @@ struct PreviewViewUIController: NSViewRepresentable {
 
 struct ContentView: View {
     @ObservedObject private var camera = Camera()
-    @State private var didTap:Bool = false
+    @State private var didTap: Bool = false
+    @State private var tapPos: CGPoint?
     let didBecomeKeyNotification = NotificationCenter.default.publisher(
         for: NSWindow.didBecomeKeyNotification)
     let didResignKeyNotification = NotificationCenter.default.publisher(
@@ -60,40 +78,36 @@ struct ContentView: View {
     init() {
         camera.checkPermission()
     }
+
     var body: some View {
         ZStack {
             PreviewViewUIController(captureSession: camera.captureSession)
+
                 .onTapGesture(count: 2) { _ in
+
                     camera.capturePhoto()
-                    didTap = true
-                    Task {
-                        try? await Task.sleep(for: Duration.seconds(0.75))
-                            didTap = false
+                    withAnimation {
+                        didTap = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation {
+                                self.didTap = false
+                            }
+                        }
                     }
                 }
                 .overlay {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10).fill(.mint.opacity(0.7))
-                        Text("Screenshot copied to clipboard").fontDesign(.monospaced).font(.largeTitle)
-                    }.ignoresSafeArea()
-                        .opacity(didTap ? 1 : 0)
+                    ScreenshotOverlay(doubletapped: $didTap)
                 }
+                .background(.mint.opacity(0.5))
                 .frame(width: 500, height: 281)
-                .onReceive(didBecomeKeyNotification) { f in
+                .onReceive(didBecomeKeyNotification) { _ in
                     DispatchQueue.main.async {
                         camera.toggle(desired: .on)
- 
                     }
                 }.onReceive(didResignKeyNotification) { _ in
                     DispatchQueue.main.async {
                         camera.toggle(desired: .off)
                     }
-                    
-                }
-            
-                .overlay(alignment: .bottomTrailing) {
-                    Text("lgtm").offset(x: -10, y: -10).font(.callout).foregroundColor(.mint).fontWeight(.bold)
-                    
                 }
         }
     }
