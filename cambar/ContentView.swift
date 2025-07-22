@@ -4,47 +4,50 @@
 //  Created by Devin Argenta on 2/8/23.
 //
 
-import AppKit
 import AVKit
-import Foundation
+import NotificationCenter
 import SwiftUI
-import VisionKit
 
 class PreviewView: NSView {
+    private let sessionQueue = DispatchQueue(label: "camera.session")
     init(captureSession: AVCaptureSession) {
         super.init(frame: .zero)
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        setupLayer()
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.setupLayer()
+        sessionQueue.async { 
+            captureSession.startRunning()
+        }
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setupLayer() {
         previewLayer?.contentsGravity = .resizeAspectFill
         previewLayer?.videoGravity = .resizeAspectFill
         previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
         previewLayer?.connection?.isVideoMirrored = true
- 
+
         layer = previewLayer
-  
-
- 
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     var previewLayer: AVCaptureVideoPreviewLayer?
 }
 
 struct ScreenshotOverlay: View {
-    @Binding var doubletapped: Bool;
+    @Binding var doubleTapped: Bool
     var body: some View {
         ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 5)
-                    .strokeBorder(lineWidth: doubletapped ? 5 : 0, antialiased: true)
-                    .animation(.spring().speed(2), value: doubletapped)
-                    .foregroundColor(.mint)
+            RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(
+                    lineWidth: doubleTapped ? 5 : 0,
+                    antialiased: true
+                )
+                .animation(.spring().speed(2), value: doubleTapped)
+                .foregroundColor(.mint)
+                .opacity(doubleTapped ? 1 : 0)
+                .blur(radius: doubleTapped ? 5 : 0)
 
         }.ignoresSafeArea()
     }
@@ -56,59 +59,50 @@ struct PreviewViewUIController: NSViewRepresentable {
         self.captureSession = captureSession
     }
 
-    func makeNSView(context: NSViewRepresentableContext<PreviewViewUIController>) -> PreviewView {
+    func makeNSView(
+        context: NSViewRepresentableContext<PreviewViewUIController>
+    ) -> PreviewView {
         PreviewView(captureSession: captureSession)
     }
 
     func updateNSView(
-        _ uiView: PreviewView, context: NSViewRepresentableContext<PreviewViewUIController>) {}
+        _ uiView: PreviewView,
+        context: NSViewRepresentableContext<PreviewViewUIController>
+    ) {}
 
     typealias NSViewType = PreviewView
 }
 
-struct ContentView: View {
-    @ObservedObject private var camera = Camera()
-    @State private var didTap: Bool = false
-    @State private var tapPos: CGPoint?
+struct WindowKeyStateModifier: ViewModifier {
+    let start: () -> Void
+    let stop: () -> Void
+    
     let didBecomeKeyNotification = NotificationCenter.default.publisher(
-        for: NSWindow.didBecomeKeyNotification)
+        for: NSWindow.didBecomeKeyNotification
+    )
     let didResignKeyNotification = NotificationCenter.default.publisher(
-        for: NSWindow.didResignKeyNotification)
+        for: NSWindow.didResignKeyNotification
+    )
 
-    init() {
-        camera.checkPermission()
+    func body(content: Content) -> some View {
+        content
+            .onReceive(didBecomeKeyNotification) { _ in start() }
+            .onReceive(didResignKeyNotification) { _ in stop() }
     }
+}
+
+struct ContentView: View {
+
+    @StateObject private var camera = Camera()
+    @State private var isDoubleTapped = false
+    @State private var doubleTapPos: CGPoint?
+
+
 
     var body: some View {
         ZStack {
-            PreviewViewUIController(captureSession: camera.captureSession)
-
-                .onTapGesture(count: 2) { _ in
-
-                    camera.capturePhoto()
-                    withAnimation {
-                        didTap = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            withAnimation {
-                                self.didTap = false
-                            }
-                        }
-                    }
-                }
-                .overlay {
-                    ScreenshotOverlay(doubletapped: $didTap)
-                }
-                .background(.mint.opacity(0.5))
-                .frame(width: 500, height: 281)
-                .onReceive(didBecomeKeyNotification) { _ in
-                    DispatchQueue.main.async {
-                        camera.toggle(desired: .on)
-                    }
-                }.onReceive(didResignKeyNotification) { _ in
-                    DispatchQueue.main.async {
-                        camera.toggle(desired: .off)
-                    }
-                }
+            CameraView(camera: camera, isDoubleTapped: isDoubleTapped)
         }
     }
 }
+

@@ -1,110 +1,152 @@
 import AVFoundation
 import AVKit
-import Foundation
+import SwiftUI
 
 class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
-    @Published var cameraOutput = AVCapturePhotoOutput()
-    func capturePhoto() {
-        let settings = AVCapturePhotoSettings()
+    var cameraOutput = AVCapturePhotoOutput()
 
+    // MARK: Capture Photo
+
+    public func capturePhoto() {
+        let settings = AVCapturePhotoSettings()
         cameraOutput.capturePhoto(with: settings, delegate: self)
     }
+
+    // MARK: Copy Photo
+
+    func copyPhotoToClipboard(_ image: NSImage) {
+        print(image)
+        let pb = NSPasteboard.general
+
+        pb.clearContents()
+        pb.writeObjects([image])
+    }
+
+    // MARK: Stream Photo Output
 
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation(),
               let image = NSImage(data: data)
         else {
+            print("unable to capture, image or data were null")
             return
         }
 
         if let error = error {
             print(error.localizedDescription)
         }
-        let pb = NSPasteboard.general
-        
-        
-        pb.clearContents()
-        pb.writeObjects([image])
+        copyPhotoToClipboard(image)
     }
 }
 
-
 class Camera: ObservableObject {
-    @Published var captureSession = AVCaptureSession()
+    @Published var captureSession: AVCaptureSession
     @Published var permissionGranted: Bool = false // Flag for permission
 
-    @Published var photoCaptureHandler = AVCapturePhotoDelegate()
+    @Published var photoCaptureHandler: AVCapturePhotoDelegate
     
+    @Published var errorMessage: String? = nil
+
+    // MARK: CaptureState Enum
     enum CaptureState {
         case on, off
     }
 
+    // MARK: Valid Device Types [AVCaptureDevice.DeviceType]
     private var validDeviceTypes: [AVCaptureDevice.DeviceType] = [
-        .externalUnknown, .deskViewCamera, .builtInWideAngleCamera,
+        .external, .deskViewCamera, .builtInWideAngleCamera,
     ]
+
+    private let sessionQueue = DispatchQueue(label: "camera.session")
     
-    private var sessionQueue = DispatchQueue.main
+    private var sessionConfigured: Bool = false
+
+    // MARK: init
 
     init() {
-        DispatchQueue.main.async {
-            self.createSession()
-            self.photoCaptureHandler = AVCapturePhotoDelegate()
-        }
+        captureSession = AVCaptureSession()
+        photoCaptureHandler = AVCapturePhotoDelegate()
     }
 
     func toggle(desired: CaptureState) {
-        switch desired {
-        case .on:
-            captureSession.startRunning()
-        case .off:
-            captureSession.stopRunning()
+        sessionQueue.async { [weak self] in
+            guard let self = self else { return }
+            switch desired {
+            case .on:
+                captureSession.startRunning()
+            case .off:
+                captureSession.stopRunning()
+            }
         }
     }
-    
+
     func capturePhoto() {
-        return self.photoCaptureHandler.capturePhoto()
+        return photoCaptureHandler.capturePhoto()
+    }
+
+    func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: validDeviceTypes, mediaType: .video, position: .unspecified)
+        let devices = discoverySession.devices
+        guard !devices.isEmpty else {
+            DispatchQueue.main.async {
+                self.errorMessage = "No capture devices found"
+            }
+            return nil
+        }
+        return devices.first
     }
 
     func createSession() {
-        Task {
-            let videoDevice = AVCaptureDevice.DiscoverySession(
-                deviceTypes: self.validDeviceTypes,
-                mediaType: .video,
-                position: .unspecified)
-            
-            guard let device = videoDevice.devices.first else { return }
-            guard let videoDeviceInput = try? AVCaptureDeviceInput(device: device),
+        sessionQueue.async { [self] in
+            if sessionConfigured {
+                return
+            }
+            guard let videoDevice = bestDevice(in: .front) else { return }
+            guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
                   captureSession.canAddInput(videoDeviceInput)
-            else { return }
+            else {
+                DispatchQueue.main.async {
+                    self.errorMessage = "No capture devices found"
+                }
+                return
+            }
             captureSession.beginConfiguration()
             captureSession.addInput(videoDeviceInput)
-            let output = AVCaptureVideoDataOutput()
-            guard captureSession.canAddOutput(output) else { return }
             captureSession.sessionPreset = .high
-            captureSession.addOutput(output)
-            captureSession.addOutput(self.photoCaptureHandler.cameraOutput)
+            if !captureSession.outputs.contains(where: { $0 === photoCaptureHandler.cameraOutput }) {
+                if captureSession.canAddOutput(photoCaptureHandler.cameraOutput) {
+                    captureSession.addOutput(photoCaptureHandler.cameraOutput)
+                }
+            }
             captureSession.commitConfiguration()
+            sessionConfigured = true
         }
     }
 
     func checkPermission() {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
         case .authorized:
             permissionGranted = true
+            createSession()
         case .notDetermined:
             requestPermission()
-        default:
+        case .denied, .restricted:
+            permissionGranted = false
+        @unknown default:
             permissionGranted = false
         }
     }
-
+    
     func requestPermission() {
-        sessionQueue.suspend()
-        return AVCaptureDevice.requestAccess(for: .video) { granted in
-            self.sessionQueue.async {
-                self.permissionGranted = granted
-                self.sessionQueue.resume()
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            if granted {
+                DispatchQueue.main.async {
+                    self.permissionGranted = granted
+                    self.createSession()
+                }
             }
         }
     }
 }
+

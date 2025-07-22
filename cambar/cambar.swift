@@ -9,29 +9,28 @@ import AVFoundation
 import SwiftUI
 
 @main
-struct cambar: App {
+struct CamBar: App {
     let icon = NSImage(imageLiteralResourceName: "MenuIcon")
+
     var body: some Scene {
         MenuBarExtra {
             ZStack {
                 ContentView()
                     .zIndex(1)
-                Text("connecting to ur lil camera?")
-                    .zIndex(0)
             }
-            .buttonStyle(.borderless)
             .contextMenu {
-                Text("Double tap to screenshot")
-                Button("Quit") {
-                    NSApp.terminate(self)
-                }
+                Text("Double tap to screenshot (copied to clipboard)")
+                Button("Quit", action: quit) // Use a separate function to quit the app
             }
         } label: {
-            Image(nsImage: icon.self).task {
+            Image(nsImage: icon).task {
                 icon.isTemplate = true
             }
+        }.menuBarExtraStyle(WindowMenuBarExtraStyle())
 
-        }.menuBarExtraStyle(.window)
-            .windowResizability(.contentSize)
+    }
+
+    func quit() {
+        NSApp.terminate(nil)
     }
 }

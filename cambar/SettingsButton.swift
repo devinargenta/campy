@@ -23,6 +23,6 @@ struct SettingsButton: View {
 
 struct SettingsButton_Previews: PreviewProvider {
   static var previews: some View {
-    SettingsButton(camera: Camera())
+      SettingsButton(camera: Camera())
   }
 }
