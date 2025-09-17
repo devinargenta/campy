@@ -69,8 +69,7 @@ class Camera: ObservableObject {
     }
 
     func toggle(desired: CaptureState) {
-        sessionQueue.async { [weak self] in
-            guard let self = self else { return }
+        sessionQueue.async { [self] in
             switch desired {
             case .on:
                 captureSession.startRunning()
@@ -113,30 +112,14 @@ class Camera: ObservableObject {
             captureSession.beginConfiguration()
             captureSession.addInput(videoDeviceInput)
             captureSession.sessionPreset = .high
-            if !captureSession.outputs.contains(where: { $0 === photoCaptureHandler.cameraOutput }) {
-                if captureSession.canAddOutput(photoCaptureHandler.cameraOutput) {
-                    captureSession.addOutput(photoCaptureHandler.cameraOutput)
-                }
+            if captureSession.canAddOutput(photoCaptureHandler.cameraOutput) {
+                captureSession.addOutput(photoCaptureHandler.cameraOutput)
             }
             captureSession.commitConfiguration()
             sessionConfigured = true
         }
     }
 
-    func checkPermission() {
-        let status = AVCaptureDevice.authorizationStatus(for: .video)
-        switch status {
-        case .authorized:
-            permissionGranted = true
-            createSession()
-        case .notDetermined:
-            requestPermission()
-        case .denied, .restricted:
-            permissionGranted = false
-        @unknown default:
-            permissionGranted = false
-        }
-    }
     
     func requestPermission() {
         AVCaptureDevice.requestAccess(for: .video) { granted in

@@ -11,11 +11,11 @@ import SwiftUI
 @main
 struct CamBar: App {
     let icon = NSImage(imageLiteralResourceName: "MenuIcon")
-
+    let camera = Camera()
     var body: some Scene {
         MenuBarExtra {
             ZStack {
-                ContentView()
+                ContentView(camera: camera)
                     .zIndex(1)
             }
             .contextMenu {
