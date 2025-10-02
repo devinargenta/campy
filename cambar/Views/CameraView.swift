@@ -38,8 +38,9 @@ struct CameraView: View {
                     )
                 }
                 .padding(10)
-                .applyConditionalButtonStyle()
-            }
+                .frame(width: 500, height: 281)
+            
+            }.transition(.push(from:.top).animation(.easeInOut(duration: 0.5)))
         } else {
             PreviewViewUIController(captureSession: camera.captureSession)
                 .onTapGesture(count: 2) { tap in
@@ -56,7 +57,7 @@ struct CameraView: View {
                 .overlay {
                     ScreenshotOverlay(doubleTapped: $isDoubleTapped)
                 }
-                .background(.mint.opacity(0.5))
+                .background(.mint.opacity(0.1).gradient).glassEffect()
                 .frame(width: 500, height: 281)
                 .modifier(
                     WindowKeyStateModifier(
@@ -72,14 +73,3 @@ struct CameraView: View {
     }
 }
 
-// MARK: - Conditional ButtonStyle Helper
-private extension View {
-    @ViewBuilder
-    func applyConditionalButtonStyle() -> some View {
-        if #available(macOS 26.0, *) {
-            self.buttonStyle(GlassButtonStyle())
-        } else {
-            self.buttonStyle(PlainButtonStyle())
-        }
-    }
-}

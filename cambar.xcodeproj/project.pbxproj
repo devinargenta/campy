@@ -80,20 +80,17 @@
 		9EE27637299427130014163B /* cambar */ = {
 			isa = PBXGroup;
 			children = (
+				9EFF96D62E7C550000944B9A /* Views */,
 				9EE27647299427740014163B /* Info.plist */,
 				9EE27638299427130014163B /* cambar.swift */,
-				9EE2763A299427130014163B /* ContentView.swift */,
 				9E89ADAE2E3CF41200C353C7 /* WindowKeyStateModifier.swift */,
 				9E89ADAC2E3CF40400C353C7 /* PreviewViewUIController.swift */,
-				9E89ADAA2E3CF3F800C353C7 /* ScreenshotOverlay.swift */,
-				9E89ADA82E3CF3EB00C353C7 /* PreviewView.swift */,
-				9EBB311E2E2FB8A600344386 /* CameraView.swift */,
 				9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */,
-				9EE2763C299427130014163B /* Assets.xcassets */,
-				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
+				9EFF96D72E7C551800944B9A /* Assets */,
 				9EE27641299427130014163B /* cambar.entitlements */,
 				9EE2763E299427130014163B /* Preview Content */,
 				9E89ADA62E3CEE5500C353C7 /* Documentation.docc */,
+				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
 			);
 			path = cambar;
 			sourceTree = "<group>";
@@ -104,6 +101,25 @@
 				9EE2763F299427130014163B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9EFF96D62E7C550000944B9A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EE2763A299427130014163B /* ContentView.swift */,
+				9EBB311E2E2FB8A600344386 /* CameraView.swift */,
+				9E89ADA82E3CF3EB00C353C7 /* PreviewView.swift */,
+				9E89ADAA2E3CF3F800C353C7 /* ScreenshotOverlay.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9EFF96D72E7C551800944B9A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9EE2763C299427130014163B /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,7 +359,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cambar/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "campy menu cam";
+				INFOPLIST_KEY_CFBundleDisplayName = "cambar - menubar camera view";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need your camera so we can see you!";
@@ -352,8 +368,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.1;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -363,6 +379,8 @@
 				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
 				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
 				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -399,7 +417,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cambar/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "campy menu cam";
+				INFOPLIST_KEY_CFBundleDisplayName = "cambar - menubar camera view";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need your camera so we can see you!";
@@ -408,8 +426,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.1;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -419,6 +437,8 @@
 				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
 				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
 				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};

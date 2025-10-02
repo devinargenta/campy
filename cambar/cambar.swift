@@ -13,6 +13,9 @@ struct CamBar: App {
     let icon = NSImage(imageLiteralResourceName: "MenuIcon")
     let camera = Camera()
     var body: some Scene {
+        WindowGroup {
+            ContentView(camera: camera)
+        }
         MenuBarExtra {
             ZStack {
                 ContentView(camera: camera)
@@ -26,7 +29,7 @@ struct CamBar: App {
             Image(nsImage: icon).task {
                 icon.isTemplate = true
             }
-        }.menuBarExtraStyle(WindowMenuBarExtraStyle())
+        }.windowBackgroundDragBehavior(.enabled).menuBarExtraStyle(WindowMenuBarExtraStyle())
 
     }
 
