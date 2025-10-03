@@ -15,9 +15,7 @@ class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     // MARK: Copy Photo
 
     func copyPhotoToClipboard(_ image: NSImage) {
-        print(image)
         let pb = NSPasteboard.general
-
         pb.clearContents()
         pb.writeObjects([image])
     }
@@ -97,9 +95,6 @@ class Camera: ObservableObject {
 
     func createSession() {
         sessionQueue.async { [self] in
-            if sessionConfigured {
-                return
-            }
             guard let videoDevice = bestDevice(in: .front) else { return }
             guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
                   captureSession.canAddInput(videoDeviceInput)
@@ -110,6 +105,7 @@ class Camera: ObservableObject {
                 return
             }
             captureSession.beginConfiguration()
+            captureSession.automaticallyRunsDeferredStart = true
             captureSession.addInput(videoDeviceInput)
             captureSession.sessionPreset = .high
             if captureSession.canAddOutput(photoCaptureHandler.cameraOutput) {
@@ -126,7 +122,6 @@ class Camera: ObservableObject {
             if granted {
                 DispatchQueue.main.async {
                     self.permissionGranted = granted
-                    self.createSession()
                 }
             }
         }

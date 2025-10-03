@@ -8,14 +8,6 @@ import AVKit
 import NotificationCenter
 import SwiftUI
 
-
-
-
-
-
-
-
-
 struct ContentView: View {
     @ObservedObject var camera: Camera
     @State private var isDoubleTapped = false

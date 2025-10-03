@@ -19,10 +19,10 @@ struct CameraView: View {
     }
     
     var body: some View {
-        if let errorMessage = camera.errorMessage {
+        if self.camera.errorMessage != nil {
             ZStack {
                 VStack {
-                    Text(errorMessage)
+                    Text(self.camera.errorMessage ?? "Can't access camera, try refreshing")
                     Button(
                         action: {
                             camera.errorMessage = nil
@@ -40,9 +40,9 @@ struct CameraView: View {
                 .padding(10)
                 .frame(width: 500, height: 281)
             
-            }.transition(.push(from:.top).animation(.easeInOut(duration: 0.5)))
+            }
         } else {
-            PreviewViewUIController(captureSession: camera.captureSession)
+            CameraViewUIController(captureSession: camera.captureSession)
                 .onTapGesture(count: 2) { tap in
                     camera.capturePhoto()
                     withAnimation {
@@ -57,18 +57,7 @@ struct CameraView: View {
                 .overlay {
                     ScreenshotOverlay(doubleTapped: $isDoubleTapped)
                 }
-                .background(.mint.opacity(0.1).gradient).glassEffect()
                 .frame(width: 500, height: 281)
-                .modifier(
-                    WindowKeyStateModifier(
-                        start: {
-                            camera.toggle(desired: .on)
-                        },
-                        stop: {
-                            camera.toggle(desired: .off)
-                        }
-                    )
-                )
         }
     }
 }

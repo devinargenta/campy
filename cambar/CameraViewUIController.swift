@@ -9,21 +9,21 @@ import AVKit
 import NotificationCenter
 import SwiftUI
 
-struct PreviewViewUIController: NSViewRepresentable {
+struct CameraViewUIController: NSViewRepresentable {
     private var captureSession: AVCaptureSession
     init(captureSession: AVCaptureSession) {
         self.captureSession = captureSession
     }
 
     func makeNSView(
-        context: NSViewRepresentableContext<PreviewViewUIController>
+        context: NSViewRepresentableContext<CameraViewUIController>
     ) -> PreviewView {
         PreviewView(captureSession: captureSession)
     }
 
     func updateNSView(
         _ uiView: PreviewView,
-        context: NSViewRepresentableContext<PreviewViewUIController>
+        context: NSViewRepresentableContext<CameraViewUIController>
     ) {
     }
 
