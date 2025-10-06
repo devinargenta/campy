@@ -94,7 +94,7 @@ class Camera: ObservableObject {
     }
 
     func createSession() {
-        sessionQueue.async { [self] in
+        DispatchQueue.main.async { [self] in
             guard let videoDevice = bestDevice(in: .front) else { return }
             guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
                   captureSession.canAddInput(videoDeviceInput)
@@ -114,6 +114,7 @@ class Camera: ObservableObject {
             captureSession.commitConfiguration()
             sessionConfigured = true
         }
+        return
     }
 
     

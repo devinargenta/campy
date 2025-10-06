@@ -9,7 +9,7 @@ import NotificationCenter
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var camera: Camera
+    var camera: Camera
     @State private var isDoubleTapped = false
     @State private var doubleTapPos: CGPoint?
     var body: some View {
