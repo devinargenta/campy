@@ -12,8 +12,14 @@ struct ContentView: View {
     var camera: Camera
     @State private var isDoubleTapped = false
     @State private var doubleTapPos: CGPoint?
+    @State private var vizzy: Bool = false
+
     var body: some View {
         CameraView(camera: camera, isDoubleTapped: isDoubleTapped)
+            .background(.clear)
+            .mask {
+                    RoundedRectangle(cornerRadius: 20)
+            }
+
     }
 }
-

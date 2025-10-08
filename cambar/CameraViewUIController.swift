@@ -19,6 +19,7 @@ struct CameraViewUIController: NSViewRepresentable {
         context: NSViewRepresentableContext<CameraViewUIController>
     ) -> PreviewView {
         PreviewView(captureSession: captureSession)
+        
     }
 
     func updateNSView(

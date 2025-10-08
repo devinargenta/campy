@@ -78,16 +78,16 @@
 		9EE27637299427130014163B /* cambar */ = {
 			isa = PBXGroup;
 			children = (
+				9EE27641299427130014163B /* cambar.entitlements */,
+				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
 				9EFF96D62E7C550000944B9A /* Views */,
 				9EE27647299427740014163B /* Info.plist */,
 				9EE27638299427130014163B /* cambar.swift */,
 				9E89ADAC2E3CF40400C353C7 /* CameraViewUIController.swift */,
 				9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */,
 				9EFF96D72E7C551800944B9A /* Assets */,
-				9EE27641299427130014163B /* cambar.entitlements */,
 				9EE2763E299427130014163B /* Preview Content */,
 				9E89ADA62E3CEE5500C353C7 /* Documentation.docc */,
-				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
 			);
 			path = cambar;
 			sourceTree = "<group>";

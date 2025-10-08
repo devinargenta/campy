@@ -11,64 +11,82 @@ struct CamBar: App {
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let icon = NSImage(imageLiteralResourceName: "MenuIcon")
+    let altIcon = NSImage(imageLiteralResourceName: "MenuIcon")
     let camera = Camera()
     var cameraWindow: NSWindow!
     var statusItem: NSStatusItem!
+
+    func windowDidChangeOcclusionState(_ notification: Notification) {
+        if cameraWindow.isVisible {
+            camera.toggle(desired: .on)
+        } else {
+            camera.toggle(desired: .off)
+        }
+    }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         icon.isTemplate = true
         setupStatusItem()
         setupCameraWindow()
+        camera.createSession()
     }
 
     // MARK: - Setup
 
     private func setupStatusItem() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItem = NSStatusBar.system.statusItem(
+            withLength: NSStatusItem.squareLength
+        )
         statusItem.button?.image = icon
         statusItem.button?.target = self
         statusItem.button?.action = #selector(statusItemClicked)
+   
+
+        
     }
+    
 
     private func setupCameraWindow() {
-        let contentView = ContentView(camera: camera)
-            .contextMenu {
-                Text("Double tap to screenshot (copied to clipboard)")
-                Button("Refresh Connection / Retry", action: { [self] in
-                    self.camera.captureSession.inputs.forEach(self.camera.captureSession.removeInput)
-                    self.camera.captureSession.outputs.forEach(self.camera.captureSession.removeOutput)
-                    self.camera.captureSession.stopRunning()
-                    self.camera.createSession()
-                    self.camera.captureSession.startRunning()
-                })
-                Button("Quit", action: quitApp)
-            }
-        let hosting = NSHostingController(rootView: contentView)
+        let hosting = NSHostingController(
+            rootView: ContentView(camera: camera)
+                .contextMenu {
+                    Text("Double tap to screenshot (copied to clipboard)")
+                    Button(
+                        "Refresh Connection / Retry",
+                        action: { [self] in
+                            // Use serialized API to reconfigure safely
+                            camera.toggle(desired: .off)
+                            camera.createSession()
+                            camera.toggle(desired: .on)
+                        }
+                    )
+                    Button("Quit", action: quitApp)
+                }
+        )
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 300, height: 400),
-            styleMask: [.utilityWindow, .closable, .resizable],
+            styleMask: [],
             backing: .buffered,
-            defer: false
+            defer: true
         )
         window.title = "Cambar"
         window.contentView = hosting.view
-        window.level = .floating
+        window.backgroundColor = .clear
+        window.animationBehavior = .utilityWindow
         window.delegate = self
-        window.isReleasedWhenClosed = false
-        window.isOpaque = false
+        window.isOpaque = true
+        window.isRestorable = true
+        window.level = .statusBar
         window.isMovableByWindowBackground = true
         self.cameraWindow = window
+
     }
 
     // MARK: - Menu Actions
 
     @objc func statusItemClicked() {
-        if cameraWindow.isVisible {
-            closeCameraWindow()
-        } else {
-            camera.createSession()
-            showCameraWindow()
-        }
+        toggleWindowVisibility()
+        icon.backgroundColor = .blue
     }
 
     private func quitApp() {
@@ -77,23 +95,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     // MARK: - Window Management
 
-    func showCameraWindow() {
-        camera.toggle(desired: .on)
-        cameraWindow.makeKeyAndOrderFront(nil)
-        positionWindowUnderStatusItem(cameraWindow)
-    }
-
-    func closeCameraWindow() {
-        camera.toggle(desired: .off)
-        cameraWindow.orderOut(nil)
+    func toggleWindowVisibility() {
+        // window hasn't been built yet, don't do anything
+        if cameraWindow == nil {
+            return
+        }
+        if cameraWindow!.isVisible {
+            // window is visible, hide it
+            NSApp.deactivate()
+            cameraWindow?.orderOut(self)
+        } else {
+            // window is hidden. Position and show it on top of other windows
+            cameraWindow?.orderFront(self)
+            NSApp.activate()
+            positionWindowUnderStatusItem(cameraWindow)
+        }
     }
 
     func positionWindowUnderStatusItem(_ window: NSWindow) {
-        guard let button = statusItem.button, let buttonWindow = button.window else { return }
+        guard let button = statusItem.button, let buttonWindow = button.window
+        else { return }
         let buttonFrameOnScreen = buttonWindow.convertToScreen(button.frame)
         let windowWidth = window.frame.width
         let windowHeight = window.frame.height
-        let x = buttonFrameOnScreen.origin.x + (buttonFrameOnScreen.width - windowWidth) / 2
+        let x =
+            buttonFrameOnScreen.origin.x
+            + (buttonFrameOnScreen.width - windowWidth) / 2
         let y = buttonFrameOnScreen.origin.y - windowHeight
         window.setFrameOrigin(NSPoint(x: x, y: y))
     }

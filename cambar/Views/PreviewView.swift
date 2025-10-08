@@ -11,7 +11,6 @@ import NotificationCenter
 import SwiftUI
 
 class PreviewView: NSView {
-    private let sessionQueue = DispatchQueue(label: "camera.session")
     init(captureSession: AVCaptureSession) {
         super.init(frame: .zero)
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -27,7 +26,7 @@ class PreviewView: NSView {
         previewLayer?.videoGravity = .resizeAspectFill
         previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
         previewLayer?.connection?.isVideoMirrored = true
-
+        previewLayer?.backgroundColor = NSColor.clear.cgColor
         layer = previewLayer
     }
 
