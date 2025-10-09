@@ -20,9 +20,8 @@ struct ScreenshotOverlay: View {
                     antialiased: true
                 )
                 .animation(.spring().speed(2), value: doubleTapped)
-                .foregroundColor(.mint)
+                .foregroundColor(.mint.mix(with: .black, by: 0.25))
                 .opacity(doubleTapped ? 1 : 0)
-                .blur(radius: doubleTapped ? 5 : 0)
 
         }.ignoresSafeArea()
     }

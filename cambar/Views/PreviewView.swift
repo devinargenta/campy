@@ -5,7 +5,6 @@
 //  Created by Devin Argenta on 8/1/25.
 //
 
-
 import AVKit
 import NotificationCenter
 import SwiftUI
@@ -16,17 +15,17 @@ class PreviewView: NSView {
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.setupLayer()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupLayer() {
         previewLayer?.contentsGravity = .resizeAspectFill
         previewLayer?.videoGravity = .resizeAspectFill
+        previewLayer?.masksToBounds = true
         previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
         previewLayer?.connection?.isVideoMirrored = true
-        previewLayer?.backgroundColor = NSColor.clear.cgColor
         layer = previewLayer
     }
 

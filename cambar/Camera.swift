@@ -39,6 +39,7 @@ class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 
 class Camera: ObservableObject {
     @Published var captureSession: AVCaptureSession
+    @Published var captureSessionRunning: Bool = false
     @Published var permissionGranted: Bool = false
     @Published var photoCaptureHandler: AVCapturePhotoDelegate
     @Published var errorMessage: String? = nil
@@ -71,12 +72,16 @@ class Camera: ObservableObject {
             switch desired {
             case .on:
                 if captureSession.isRunning {
+                    
                     captureSession.stopRunning()
+                    captureSessionRunning = false
                     return
                 }
                 captureSession.startRunning()
+                captureSessionRunning = true
             case .off:
                 captureSession.stopRunning()
+                captureSessionRunning = false
             }
         }
     }

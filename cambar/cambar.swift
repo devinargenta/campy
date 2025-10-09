@@ -71,10 +71,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
         window.title = "Cambar"
         window.contentView = hosting.view
-        window.backgroundColor = .clear
         window.animationBehavior = .utilityWindow
         window.delegate = self
-        window.isOpaque = true
         window.isRestorable = true
         window.level = .statusBar
         window.isMovableByWindowBackground = true
@@ -86,7 +84,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc func statusItemClicked() {
         toggleWindowVisibility()
-        icon.backgroundColor = .blue
     }
 
     private func quitApp() {
@@ -107,8 +104,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         } else {
             // window is hidden. Position and show it on top of other windows
             cameraWindow?.orderFront(self)
-            NSApp.activate()
             positionWindowUnderStatusItem(cameraWindow)
+            NSApp.activate()
         }
     }
 

@@ -44,24 +44,32 @@ struct CameraView: View {
 
             }
         } else {
-                CameraViewUIController(captureSession: camera.captureSession)
-                    .onTapGesture(count: 2) { tap in
-                        camera.capturePhoto()
-                        withAnimation {
-                            isDoubleTapped = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1)
-                            {
-                                withAnimation {
-                                    isDoubleTapped = false
-                                }
+            CameraViewUIController(captureSession: camera.captureSession)
+                .onTapGesture(count: 2) { tap in
+                    camera.capturePhoto()
+                    withAnimation {
+                        isDoubleTapped = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation {
+                                isDoubleTapped = false
                             }
                         }
                     }
+                }
+                .overlay {
+                    ScreenshotOverlay(doubleTapped: $isDoubleTapped)
+                }
+                .frame(width: 500, height: 281)
+                .background(Color.gray.mix(with: .black, by: 0.40).opacity(0.2)
+                
                     .overlay {
-                        ScreenshotOverlay(doubleTapped: $isDoubleTapped)
+                        if !camera.captureSessionRunning {
+                            ProgressView()
+                        }
                     }
-                    .frame(width: 500, height: 281)
-                    .background(.clear)
+
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 4))
         }
     }
 }

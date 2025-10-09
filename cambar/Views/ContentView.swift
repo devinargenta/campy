@@ -16,10 +16,5 @@ struct ContentView: View {
 
     var body: some View {
         CameraView(camera: camera, isDoubleTapped: isDoubleTapped)
-            .background(.clear)
-            .mask {
-                    RoundedRectangle(cornerRadius: 20)
-            }
-
     }
 }

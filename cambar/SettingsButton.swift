@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct SettingsButton: View {
-    private var camera: Camera
-    init(camera: Camera) {
-        self.camera = camera
-    }
+    @State private var showMessage = false
+
     var body: some View {
-        Button {
-            self.camera.toggle(
-                desired: camera.captureSession.isRunning ? .off : .on
-            )
-        } label: {
-            Image(systemName: "pin").backgroundStyle(.opacity(0))
-        }.backgroundStyle(.opacity(0))
+        ViewThatFits {
+            VStack {
+                Button("PISS") {
+                    showMessage = true
+                }
+                if showMessage {
+                    Text("PISS")
+                }
+            }
+        }
     }
 }
 
 struct SettingsButton_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsButton(camera: Camera())
+        SettingsButton()
     }
 }
