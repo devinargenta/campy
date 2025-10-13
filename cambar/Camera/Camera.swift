@@ -114,7 +114,7 @@ final class Camera: ObservableObject {
             teardownSessionLocked()
         }
 
-        guard let videoDevice = Camera.bestDevice(in: .front) else {
+        guard let videoDevice = Camera.bestDevice() else {
             // Ensure @Published updates occur on main
             DispatchQueue.main.async { self.errorMessage = "No capture devices found" }
             return
@@ -280,18 +280,14 @@ extension Camera {
 
 // MARK: - Device selection helper (include only if you don't already have one)
 extension Camera {
-    static func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        if let primary = AVCaptureDevice.default(
-            .builtInWideAngleCamera,
-            for: .video,
-            position: position
-        ) {
+    static func bestDevice() -> AVCaptureDevice? {
+        if let primary = AVCaptureDevice.default(for: .video) {
             return primary
         }
         let discovery = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera, .external],
+            deviceTypes: [.builtInWideAngleCamera, .external, .continuityCamera],
             mediaType: .video,
-            position: position
+            position: .front
         )
         return discovery.devices.first
     }
