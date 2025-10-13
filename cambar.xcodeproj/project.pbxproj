@@ -3,42 +3,69 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F77EE299BDF7500B5EFD2 /* Camera.swift */; };
-		9E326ADB299D1AE50086F3E2 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */; };
-		9E89ADA72E3CEE5500C353C7 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 9E89ADA62E3CEE5500C353C7 /* Documentation.docc */; };
-		9E89ADA92E3CF3EB00C353C7 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E89ADA82E3CF3EB00C353C7 /* PreviewView.swift */; };
-		9E89ADAB2E3CF3F800C353C7 /* ScreenshotOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E89ADAA2E3CF3F800C353C7 /* ScreenshotOverlay.swift */; };
-		9E89ADAD2E3CF40400C353C7 /* CameraViewUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E89ADAC2E3CF40400C353C7 /* CameraViewUIController.swift */; };
-		9EBB311F2E2FB8A600344386 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB311E2E2FB8A600344386 /* CameraView.swift */; };
+		9EC1F2C72E9852ED0010D03D /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC1F2C62E9852ED0010D03D /* Testing.framework */; };
+		9EC1F2C82E9852ED0010D03D /* Testing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC1F2C62E9852ED0010D03D /* Testing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9EE27639299427130014163B /* cambar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* cambar.swift */; };
-		9EE2763B299427130014163B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2763A299427130014163B /* ContentView.swift */; };
 		9EE2763D299427130014163B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763C299427130014163B /* Assets.xcassets */; };
 		9EF6C1F12E2557930084A5B5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E86D5EE2E12F25000E07749 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9EC1F2BF2E9851EA0010D03D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE2762D299427130014163B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9EE27634299427130014163B;
+			remoteInfo = cambar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EC1F2C92E9852ED0010D03D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9EC1F2C82E9852ED0010D03D /* Testing.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		9E0F77EE299BDF7500B5EFD2 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		9E86D5EE2E12F25000E07749 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		9E89ADA62E3CEE5500C353C7 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
-		9E89ADA82E3CF3EB00C353C7 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		9E89ADAA2E3CF3F800C353C7 /* ScreenshotOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotOverlay.swift; sourceTree = "<group>"; };
-		9E89ADAC2E3CF40400C353C7 /* CameraViewUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewUIController.swift; sourceTree = "<group>"; };
-		9EBB311E2E2FB8A600344386 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		9EC1F2BB2E9851EA0010D03D /* cambarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cambarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EC1F2C62E9852ED0010D03D /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
+		9EC1F2CA2E9860790010D03D /* cambar.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = cambar.xctestplan; sourceTree = "<group>"; };
 		9EE27635299427130014163B /* cambar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cambar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EE27638299427130014163B /* cambar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cambar.swift; sourceTree = "<group>"; };
-		9EE2763A299427130014163B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9EE2763C299427130014163B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9EE2763F299427130014163B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9EE27641299427130014163B /* cambar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cambar.entitlements; sourceTree = "<group>"; };
 		9EE27647299427740014163B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9E668BBE2E9D4E50008AD9BE /* Camera */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Camera; sourceTree = "<group>"; };
+		9EAB7DBC2E98203D00216133 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		9EAB7DC22E98204200216133 /* Controllers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Controllers; sourceTree = "<group>"; };
+		9EC1F2BC2E9851EA0010D03D /* cambarTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = cambarTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		9EC1F2B82E9851EA0010D03D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EC1F2C72E9852ED0010D03D /* Testing.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9EE27632299427130014163B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,6 +80,7 @@
 		9E86D5ED2E12F24F00E07749 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EC1F2C62E9852ED0010D03D /* Testing.framework */,
 				9E86D5EE2E12F25000E07749 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -61,7 +89,9 @@
 		9EE2762C299427130014163B = {
 			isa = PBXGroup;
 			children = (
+				9EC1F2CA2E9860790010D03D /* cambar.xctestplan */,
 				9EE27637299427130014163B /* cambar */,
+				9EC1F2BC2E9851EA0010D03D /* cambarTests */,
 				9E86D5ED2E12F24F00E07749 /* Frameworks */,
 				9EE27636299427130014163B /* Products */,
 			);
@@ -71,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				9EE27635299427130014163B /* cambar.app */,
+				9EC1F2BB2E9851EA0010D03D /* cambarTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,37 +109,15 @@
 		9EE27637299427130014163B /* cambar */ = {
 			isa = PBXGroup;
 			children = (
-				9EE27641299427130014163B /* cambar.entitlements */,
-				9E0F77EE299BDF7500B5EFD2 /* Camera.swift */,
-				9EFF96D62E7C550000944B9A /* Views */,
-				9EE27647299427740014163B /* Info.plist */,
 				9EE27638299427130014163B /* cambar.swift */,
-				9E89ADAC2E3CF40400C353C7 /* CameraViewUIController.swift */,
-				9E326ADA299D1AE50086F3E2 /* SettingsButton.swift */,
+				9E668BBE2E9D4E50008AD9BE /* Camera */,
+				9EAB7DBC2E98203D00216133 /* Views */,
+				9EAB7DC22E98204200216133 /* Controllers */,
+				9EE27647299427740014163B /* Info.plist */,
 				9EFF96D72E7C551800944B9A /* Assets */,
-				9EE2763E299427130014163B /* Preview Content */,
-				9E89ADA62E3CEE5500C353C7 /* Documentation.docc */,
+				9EE27641299427130014163B /* cambar.entitlements */,
 			);
 			path = cambar;
-			sourceTree = "<group>";
-		};
-		9EE2763E299427130014163B /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				9EE2763F299427130014163B /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		9EFF96D62E7C550000944B9A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				9EE2763A299427130014163B /* ContentView.swift */,
-				9EBB311E2E2FB8A600344386 /* CameraView.swift */,
-				9E89ADA82E3CF3EB00C353C7 /* PreviewView.swift */,
-				9E89ADAA2E3CF3F800C353C7 /* ScreenshotOverlay.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9EFF96D72E7C551800944B9A /* Assets */ = {
@@ -122,6 +131,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9EC1F2BA2E9851EA0010D03D /* cambarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EC1F2C12E9851EA0010D03D /* Build configuration list for PBXNativeTarget "cambarTests" */;
+			buildPhases = (
+				9EC1F2B72E9851EA0010D03D /* Sources */,
+				9EC1F2B82E9851EA0010D03D /* Frameworks */,
+				9EC1F2B92E9851EA0010D03D /* Resources */,
+				9EC1F2C92E9852ED0010D03D /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EC1F2C02E9851EA0010D03D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9EC1F2BC2E9851EA0010D03D /* cambarTests */,
+			);
+			name = cambarTests;
+			packageProductDependencies = (
+			);
+			productName = cambarTests;
+			productReference = 9EC1F2BB2E9851EA0010D03D /* cambarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9EE27634299427130014163B /* cambar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "cambar" */;
@@ -133,6 +166,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9E668BBE2E9D4E50008AD9BE /* Camera */,
+				9EAB7DBC2E98203D00216133 /* Views */,
+				9EAB7DC22E98204200216133 /* Controllers */,
 			);
 			name = cambar;
 			productName = camprey;
@@ -146,9 +184,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					9EC1F2BA2E9851EA0010D03D = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 9EE27634299427130014163B;
+					};
 					9EE27634299427130014163B = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -168,11 +210,19 @@
 			projectRoot = "";
 			targets = (
 				9EE27634299427130014163B /* cambar */,
+				9EC1F2BA2E9851EA0010D03D /* cambarTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9EC1F2B92E9851EA0010D03D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9EE27633299427130014163B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,25 +234,79 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9EC1F2B72E9851EA0010D03D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9EE27631299427130014163B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EBB311F2E2FB8A600344386 /* CameraView.swift in Sources */,
-				9E89ADA72E3CEE5500C353C7 /* Documentation.docc in Sources */,
-				9E89ADAB2E3CF3F800C353C7 /* ScreenshotOverlay.swift in Sources */,
-				9E89ADA92E3CF3EB00C353C7 /* PreviewView.swift in Sources */,
-				9E326ADB299D1AE50086F3E2 /* SettingsButton.swift in Sources */,
-				9E89ADAD2E3CF40400C353C7 /* CameraViewUIController.swift in Sources */,
-				9EE2763B299427130014163B /* ContentView.swift in Sources */,
 				9EE27639299427130014163B /* cambar.swift in Sources */,
-				9E0F77EF299BDF7500B5EFD2 /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9EC1F2C02E9851EA0010D03D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9EE27634299427130014163B /* cambar */;
+			targetProxy = 9EC1F2BF2E9851EA0010D03D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		9EC1F2C22E9851EA0010D03D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TM3VXQ389G;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cambar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cambar";
+			};
+			name = Debug;
+		};
+		9EC1F2C32E9851EA0010D03D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TM3VXQ389G;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cambar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cambar";
+			};
+			name = Release;
+		};
 		9EE27642299427130014163B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -329,6 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME[sdk=*]" = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = cambar/cambar.entitlements;
@@ -366,6 +471,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.200;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -387,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME[sdk=*]" = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = cambar/cambar.entitlements;
@@ -424,6 +531,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.200;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -443,6 +551,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9EC1F2C12E9851EA0010D03D /* Build configuration list for PBXNativeTarget "cambarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EC1F2C22E9851EA0010D03D /* Debug */,
+				9EC1F2C32E9851EA0010D03D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9EE27630299427130014163B /* Build configuration list for PBXProject "cambar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

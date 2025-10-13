@@ -9,67 +9,118 @@ import NotificationCenter
 import SwiftUI
 
 struct CameraView: View {
-    @ObservedObject var camera: Camera
+    @ObservedObject private var camera: Camera
     @State private var isDoubleTapped = false
+
     init(camera: Camera, isDoubleTapped: Bool = false) {
         self.camera = camera
         self.isDoubleTapped = isDoubleTapped
-        self.camera.requestPermission()
+        camera.createSession()
+    }
+   
+    var body: some View {
+        Group {
+            if camera.errorMessage != nil {
+                errorStateView
+            } else {
+                previewStateView.background(ProgressView())
+                    .frame(width: Self.previewWidth, height: Self.previewHeight)
+                    .background {backgroundStateOverlay}
+            }
+        }
+        .mask {
+            RoundedRectangle(cornerRadius: Self.cornerRadius)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
+        
+    }
+}
+
+// MARK: - Subviews
+extension CameraView {
+
+    func didTap() {
+        withAnimation {
+            isDoubleTapped = true
+            camera.capturePhoto()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    isDoubleTapped = false
+                }
+            }
+        }
+    }
+   
+    @MainActor
+    var previewStateView: some View {
+        ZStack {
+            CameraViewUIController(captureSession: camera.captureSession)
+                .accessibilityIdentifier("CameraPreview")
+
+            ScreenshotOverlay(doubleTapped: $isDoubleTapped)
+                .accessibilityIdentifier("ScreenshotOverlay")
+        }
+        .onTapGesture(count: 2) {
+            didTap()
+        }
+
+
     }
 
-    var body: some View {
-        if self.camera.errorMessage != nil {
-            ZStack {
-                VStack {
-                    Text(
-                        self.camera.errorMessage
-                            ?? "Can't access camera, try refreshing"
-                    )
-                    Button(
-                        action: {
-                            camera.errorMessage = nil
-                            camera.requestPermission()
-                            camera.createSession()
-                        },
-                        label: {
-                            HStack {
-                                Image(systemName: "arrow.clockwise.square.fill")
-                                Text("Refresh camera connection")
-                            }
-                        }
-                    )
-                }
-                .padding(10)
-                .background(Color.mint.mix(with: .black, by: 0.40))
-
-            }
+    @MainActor
+    var backgroundStateOverlay: some View {
+        if !camera.captureSession.outputs.isEmpty {
+            Self.errorBackgroundColor
         } else {
-            CameraViewUIController(captureSession: camera.captureSession)
-                .onTapGesture(count: 2) { tap in
-                    camera.capturePhoto()
-                    withAnimation {
-                        isDoubleTapped = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            withAnimation {
-                                isDoubleTapped = false
-                            }
-                        }
-                    }
-                }
-                .overlay {
-                    ScreenshotOverlay(doubleTapped: $isDoubleTapped)
-                }
-                .frame(width: 500, height: 281)
-                .background(Color.gray.mix(with: .black, by: 0.40).opacity(0.2)
-                
-                    .overlay {
-                        if !camera.captureSessionRunning {
-                            ProgressView()
-                        }
-                    }
-
-                )
-                .clipShape(RoundedRectangle(cornerRadius: 4))
+            Self.previewBackgroundColor
         }
+    }
+}
+
+
+extension CameraView {
+    @ViewBuilder
+    fileprivate var errorStateView: some View {
+        ZStack {
+            VStack {
+                Text(
+                    camera.errorMessage ?? "Can't access camera, try refreshing"
+                )
+                .accessibilityIdentifier("ErrorMessage")
+                Button(
+                    action: {
+                        camera.toggle(desired: .off)
+                        camera.createSession()
+                        camera.toggle(desired: .on)
+                    },
+                    label: {
+                        HStack {
+                            Image(systemName: "arrow.clockwise.square.fill")
+                            Text("Refresh camera connection")
+                        }
+                    }
+                )
+                .accessibilityIdentifier("ErrorRefreshButton")
+            }
+            .padding(10)
+            .background(Self.errorBackgroundColor)
+        }
+    }
+
+}
+
+// MARK: - Constants
+extension CameraView {
+    fileprivate static let cornerRadius: CGFloat = 20
+    fileprivate static let previewWidth: CGFloat = 500
+    fileprivate static let previewHeight: CGFloat = 281
+    fileprivate static let opacity: Double = 0.8
+
+    fileprivate static var errorBackgroundColor: Color {
+        Color.mint.mix(with: .black, by: 0.40)
+    }
+
+    fileprivate static var previewBackgroundColor: Color {
+        Color.gray.mix(with: .black, by: 0.40)
     }
 }

@@ -14,15 +14,16 @@ struct ScreenshotOverlay: View {
     @Binding var doubleTapped: Bool
     var body: some View {
         ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 5)
+            RoundedRectangle(cornerRadius: 20)
                 .strokeBorder(
                     lineWidth: doubleTapped ? 5 : 0,
                     antialiased: true
                 )
-                .animation(.spring().speed(2), value: doubleTapped)
-                .foregroundColor(.mint.mix(with: .black, by: 0.25))
+                .padding(10)
+                .animation(.spring().speed(1), value: doubleTapped)
+                .foregroundColor(.mint.mix(with: .white, by: 0.40))
                 .opacity(doubleTapped ? 1 : 0)
 
-        }.ignoresSafeArea()
+        }
     }
 }

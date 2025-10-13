@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "79F05D97-0FA4-407B-B3A2-CFC307579C16",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+
+    ],
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:cambar.xcodeproj",
+      "identifier" : "9EE27634299427130014163B",
+      "name" : "cambar"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "CameraTests",
+            "testFunctions" : [
+              "createSessionSuccess()"
+            ]
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:cambar.xcodeproj",
+        "identifier" : "9EC1F2BA2E9851EA0010D03D",
+        "name" : "cambarTests"
+      }
+    }
+  ],
+  "version" : 2
+}

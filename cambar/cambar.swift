@@ -4,121 +4,67 @@ import SwiftUI
 @main
 struct CamBar: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    var body: some Scene {
-        // Window management is in AppDelegate
-    }
+    var body: some Scene { }
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
-    let icon = NSImage(imageLiteralResourceName: "MenuIcon")
-    let altIcon = NSImage(imageLiteralResourceName: "MenuIcon")
-    let camera = Camera()
-    var cameraWindow: NSWindow!
-    var statusItem: NSStatusItem!
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    // MARK: - Properties
+    private let camera = Camera()
 
-    func windowDidChangeOcclusionState(_ notification: Notification) {
-        if cameraWindow.isVisible {
-            camera.toggle(desired: .on)
-        } else {
-            camera.toggle(desired: .off)
-        }
-    }
-
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        icon.isTemplate = true
-        setupStatusItem()
-        setupCameraWindow()
-        camera.createSession()
-    }
-
-    // MARK: - Setup
-
-    private func setupStatusItem() {
-        statusItem = NSStatusBar.system.statusItem(
-            withLength: NSStatusItem.squareLength
-        )
-        statusItem.button?.image = icon
-        statusItem.button?.target = self
-        statusItem.button?.action = #selector(statusItemClicked)
-   
-
-        
-    }
+    private var statusBarController: StatusBarController!
+    private var windowController: CameraWindowController!
     
 
-    private func setupCameraWindow() {
-        let hosting = NSHostingController(
-            rootView: ContentView(camera: camera)
-                .contextMenu {
-                    Text("Double tap to screenshot (copied to clipboard)")
-                    Button(
-                        "Refresh Connection / Retry",
-                        action: { [self] in
-                            // Use serialized API to reconfigure safely
-                            camera.toggle(desired: .off)
-                            camera.createSession()
-                            camera.toggle(desired: .on)
+    // MARK: - NSApplicationDelegate
+    @MainActor fileprivate func getWindowController() -> CameraWindowController {
+        return CameraWindowController(
+            title: "Cambar",
+            content: { [weak self] in
+                guard let self else { return AnyView(EmptyView()) }
+                // Provide ContentView with actions for context menu
+                return AnyView(
+                    CameraView(camera: self.camera)
+                        .contextMenu {
+                            Text("Double tap to screenshot (copied to clipboard)")
+                            Button("Refresh Connection / Retry") { [weak self] in
+                                guard let self else { return }
+                                // Safely reconfigure
+                                self.camera.toggle(desired: .off)
+                                // Only turn on if the window is visible
+                                if self.windowController.isVisible {
+                                    self.camera.toggle(desired: .on)
+                                }
+                            }
+                            Button("Quit", action: { NSApp.terminate(nil) })
                         }
-                    )
-                    Button("Quit", action: quitApp)
-                }
+                )
+            }
         )
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 300, height: 400),
-            styleMask: [],
-            backing: .buffered,
-            defer: true
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        // Build controllers
+
+        statusBarController = StatusBarController(
+            imageName: "MenuIcon",
+            onClick: { [weak self] in
+                self?.toggleWindow()
+            }
         )
-        window.title = "Cambar"
-        window.contentView = hosting.view
-        window.animationBehavior = .utilityWindow
-        window.delegate = self
-        window.isRestorable = true
-        window.level = .statusBar
-        window.isMovableByWindowBackground = true
-        self.cameraWindow = window
 
+        windowController = getWindowController()
     }
 
-    // MARK: - Menu Actions
+    // MARK: - Actions
+    @MainActor private func toggleWindow() {
+        windowController.toggleUnder(statusBarButton: statusBarController.button)
 
-    @objc func statusItemClicked() {
-        toggleWindowVisibility()
-    }
+        let viz = windowController.isVisible
 
-    private func quitApp() {
-        NSApp.terminate(nil)
-    }
-
-    // MARK: - Window Management
-
-    func toggleWindowVisibility() {
-        // window hasn't been built yet, don't do anything
-        if cameraWindow == nil {
-            return
-        }
-        if cameraWindow!.isVisible {
-            // window is visible, hide it
-            NSApp.deactivate()
-            cameraWindow?.orderOut(self)
+        if viz {
+            self.camera.toggle(desired: .on)
         } else {
-            // window is hidden. Position and show it on top of other windows
-            cameraWindow?.orderFront(self)
-            positionWindowUnderStatusItem(cameraWindow)
-            NSApp.activate()
+            self.camera.toggle(desired: .off)
         }
-    }
-
-    func positionWindowUnderStatusItem(_ window: NSWindow) {
-        guard let button = statusItem.button, let buttonWindow = button.window
-        else { return }
-        let buttonFrameOnScreen = buttonWindow.convertToScreen(button.frame)
-        let windowWidth = window.frame.width
-        let windowHeight = window.frame.height
-        let x =
-            buttonFrameOnScreen.origin.x
-            + (buttonFrameOnScreen.width - windowWidth) / 2
-        let y = buttonFrameOnScreen.origin.y - windowHeight
-        window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 }
