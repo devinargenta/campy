@@ -4,7 +4,7 @@ import SwiftUI
 @MainActor
 final class CameraWindowController: NSObject, NSWindowDelegate {
     private let title: String
-    private let contentProvider: () -> AnyView
+    private let contentProvider: () -> CameraView
     private let window: NSWindow
 
     var isVisible: Bool {
@@ -13,7 +13,7 @@ final class CameraWindowController: NSObject, NSWindowDelegate {
 
     init(
         title: String,
-        content: @escaping () -> AnyView
+        content: @escaping () -> CameraView
     ) {
         self.title = title
         self.contentProvider = content

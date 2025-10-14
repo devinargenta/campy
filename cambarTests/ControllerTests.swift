@@ -5,7 +5,6 @@ import Testing
 
 @testable import cambar
 
-
 @Suite("CameraWindowController")
 @MainActor
 struct CameraWindowControllerTests {
@@ -13,7 +12,7 @@ struct CameraWindowControllerTests {
     private func makeController() -> CameraWindowController {
         CameraWindowController(
             title: "Test Window",
-            content: { AnyView(Text("Hello")) }
+            content: { CameraView(camera: Camera())}
         )
     }
 
@@ -93,7 +92,7 @@ struct StatusBarControllerTests {
     @Test("button is created with an image and action")
     func button_exists_with_image_and_action() {
         // Given
-        let controller = StatusBarController(imageName: "MenuIcon") { }
+        let controller = StatusBarController(imageName: "MenuIcon") {}
 
         // When
         let button = controller.button

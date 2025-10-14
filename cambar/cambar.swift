@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct CamBar: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    var body: some Scene { }
+    var body: some Scene {}
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -13,46 +13,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var statusBarController: StatusBarController!
     private var windowController: CameraWindowController!
-    
 
-    // MARK: - NSApplicationDelegate
-    @MainActor fileprivate func getWindowController() -> CameraWindowController {
-        return CameraWindowController(
-            title: "Cambar",
-            content: { [weak self] in
-                guard let self else { return AnyView(EmptyView()) }
-                // Provide ContentView with actions for context menu
-                return AnyView(
-                    CameraView(camera: self.camera)
-                        .contextMenu {
-                            Text("Double tap to screenshot (copied to clipboard)")
-                            Button("Refresh Connection / Retry") { [weak self] in
-                                guard let self else { return }
-                                // Safely reconfigure
-                                self.camera.toggle(desired: .off)
-                                // Only turn on if the window is visible
-                                if self.windowController.isVisible {
-                                    self.camera.toggle(desired: .on)
-                                }
-                            }
-                            Button("Quit", action: { NSApp.terminate(nil) })
-                        }
-                )
-            }
-        )
-    }
-    
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Build controllers
 
         statusBarController = StatusBarController(
             imageName: "MenuIcon",
-            onClick: { [weak self] in
-                self?.toggleWindow()
+            onClick: { [self] in
+                toggleWindow()
             }
         )
 
-        windowController = getWindowController()
+        windowController = CameraWindowController(
+            title: "Cambar",
+            content: { [self] in
+                // Provide ContentView with actions for context menu
+                return CameraView(camera: self.camera)
+            }
+        )
     }
 
     // MARK: - Actions

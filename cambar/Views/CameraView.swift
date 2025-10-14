@@ -15,24 +15,27 @@ struct CameraView: View {
     init(camera: Camera, isDoubleTapped: Bool = false) {
         self.camera = camera
         self.isDoubleTapped = isDoubleTapped
-        camera.createSession()
     }
-   
+
     var body: some View {
         Group {
             if camera.errorMessage != nil {
                 errorStateView
             } else {
-                previewStateView.background(ProgressView())
-                    .frame(width: Self.previewWidth, height: Self.previewHeight)
-                    .background {backgroundStateOverlay}
+                ZStack
+                {
+                    ProgressView()
+                    previewStateView
+                }
+                .frame(width: Self.previewWidth, height: Self.previewHeight)
+                .background { backgroundStateOverlay }
             }
         }
         .mask {
             RoundedRectangle(cornerRadius: Self.cornerRadius)
         }
         .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
-        
+
     }
 }
 
@@ -50,11 +53,21 @@ extension CameraView {
             }
         }
     }
-   
+
     @MainActor
     var previewStateView: some View {
         ZStack {
             CameraViewUIController(captureSession: camera.captureSession)
+                .contextMenu {
+                    Text("Double tap to screenshot (copied to clipboard)")
+                    Button("Refresh Connection / Retry") { [self] in
+                        // Safely reconfigure
+                        self.camera.toggle(desired: .off)
+                        self.camera.toggle(desired: .on)
+                        // Only turn on if the window is visible
+                    }
+                    Button("Quit", action: { NSApp.terminate(nil) })
+                }
                 .accessibilityIdentifier("CameraPreview")
 
             ScreenshotOverlay(doubleTapped: $isDoubleTapped)
@@ -63,7 +76,6 @@ extension CameraView {
         .onTapGesture(count: 2) {
             didTap()
         }
-
 
     }
 
@@ -76,7 +88,6 @@ extension CameraView {
         }
     }
 }
-
 
 extension CameraView {
     @ViewBuilder
@@ -102,7 +113,7 @@ extension CameraView {
                 )
                 .accessibilityIdentifier("ErrorRefreshButton")
             }
-            .padding(10)
+            .padding(Self.padding)
             .background(Self.errorBackgroundColor)
         }
     }
@@ -115,6 +126,7 @@ extension CameraView {
     fileprivate static let previewWidth: CGFloat = 500
     fileprivate static let previewHeight: CGFloat = 281
     fileprivate static let opacity: Double = 0.8
+    fileprivate static let padding: CGFloat = 10
 
     fileprivate static var errorBackgroundColor: Color {
         Color.mint.mix(with: .black, by: 0.40)

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,14 +27,12 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		9EC1F2C92E9852ED0010D03D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				9EC1F2C82E9852ED0010D03D /* Testing.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -51,28 +49,40 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9E668BBE2E9D4E50008AD9BE /* Camera */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Camera; sourceTree = "<group>"; };
-		9EAB7DBC2E98203D00216133 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		9EAB7DC22E98204200216133 /* Controllers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Controllers; sourceTree = "<group>"; };
-		9EC1F2BC2E9851EA0010D03D /* cambarTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = cambarTests; sourceTree = "<group>"; };
+		9E668BBE2E9D4E50008AD9BE /* Camera */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		9EAB7DBC2E98203D00216133 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9EAB7DC22E98204200216133 /* Controllers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9EC1F2BC2E9851EA0010D03D /* cambarTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = cambarTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9EC1F2B82E9851EA0010D03D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				9EC1F2C72E9852ED0010D03D /* Testing.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9EE27632299427130014163B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				9EF6C1F12E2557930084A5B5 /* AVFoundation.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -149,8 +159,6 @@
 				9EC1F2BC2E9851EA0010D03D /* cambarTests */,
 			);
 			name = cambarTests;
-			packageProductDependencies = (
-			);
 			productName = cambarTests;
 			productReference = 9EC1F2BB2E9851EA0010D03D /* cambarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -164,8 +172,6 @@
 				9EE27633299427130014163B /* Resources */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
 				9E668BBE2E9D4E50008AD9BE /* Camera */,
@@ -184,8 +190,10 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				CLASSPREFIX = com.stdev;
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
+				ORGANIZATIONNAME = stdev;
 				TargetAttributes = {
 					9EC1F2BA2E9851EA0010D03D = {
 						CreatedOnToolsVersion = 26.0.1;
@@ -197,7 +205,6 @@
 				};
 			};
 			buildConfigurationList = 9EE27630299427130014163B /* Build configuration list for PBXProject "cambar" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -205,6 +212,7 @@
 				Base,
 			);
 			mainGroup = 9EE2762C299427130014163B;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 9EE27636299427130014163B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -218,36 +226,28 @@
 /* Begin PBXResourcesBuildPhase section */
 		9EC1F2B92E9851EA0010D03D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9EE27633299427130014163B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				9EE2763D299427130014163B /* Assets.xcassets in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9EC1F2B72E9851EA0010D03D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9EE27631299427130014163B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				9EE27639299427130014163B /* cambar.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -260,7 +260,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		9EC1F2C22E9851EA0010D03D /* Debug */ = {
+		9EC1F2C22E9851EA0010D03D /* Debug configuration for PBXNativeTarget "cambarTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -284,7 +284,7 @@
 			};
 			name = Debug;
 		};
-		9EC1F2C32E9851EA0010D03D /* Release */ = {
+		9EC1F2C32E9851EA0010D03D /* Release configuration for PBXNativeTarget "cambarTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -307,7 +307,7 @@
 			};
 			name = Release;
 		};
-		9EE27642299427130014163B /* Debug */ = {
+		9EE27642299427130014163B /* Debug configuration for PBXProject "cambar" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -371,7 +371,7 @@
 			};
 			name = Debug;
 		};
-		9EE27643299427130014163B /* Release */ = {
+		9EE27643299427130014163B /* Release configuration for PBXProject "cambar" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -428,7 +428,7 @@
 			};
 			name = Release;
 		};
-		9EE27645299427130014163B /* Debug */ = {
+		9EE27645299427130014163B /* Debug configuration for PBXNativeTarget "cambar" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -470,7 +470,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.200;
+				MARKETING_VERSION = 1.300;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -488,7 +488,7 @@
 			};
 			name = Debug;
 		};
-		9EE27646299427130014163B /* Release */ = {
+		9EE27646299427130014163B /* Release configuration for PBXNativeTarget "cambar" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -530,7 +530,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.200;
+				MARKETING_VERSION = 1.300;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stdev.cambar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -554,28 +554,25 @@
 		9EC1F2C12E9851EA0010D03D /* Build configuration list for PBXNativeTarget "cambarTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9EC1F2C22E9851EA0010D03D /* Debug */,
-				9EC1F2C32E9851EA0010D03D /* Release */,
+				9EC1F2C22E9851EA0010D03D /* Debug configuration for PBXNativeTarget "cambarTests" */,
+				9EC1F2C32E9851EA0010D03D /* Release configuration for PBXNativeTarget "cambarTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		9EE27630299427130014163B /* Build configuration list for PBXProject "cambar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9EE27642299427130014163B /* Debug */,
-				9EE27643299427130014163B /* Release */,
+				9EE27642299427130014163B /* Debug configuration for PBXProject "cambar" */,
+				9EE27643299427130014163B /* Release configuration for PBXProject "cambar" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		9EE27644299427130014163B /* Build configuration list for PBXNativeTarget "cambar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9EE27645299427130014163B /* Debug */,
-				9EE27646299427130014163B /* Release */,
+				9EE27645299427130014163B /* Debug configuration for PBXNativeTarget "cambar" */,
+				9EE27646299427130014163B /* Release configuration for PBXNativeTarget "cambar" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

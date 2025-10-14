@@ -2,7 +2,7 @@ import AVFoundation
 import AVKit
 import SwiftUI
 
-class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
+public class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     // This output must be the same instance that is added to the session.
     var cameraOutput = AVCapturePhotoOutput()
 
@@ -28,7 +28,7 @@ class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 
     // MARK: Stream Photo Output
 
-    func photoOutput(
+    public func photoOutput(
         _ output: AVCapturePhotoOutput,
         didFinishProcessingPhoto photo: AVCapturePhoto,
         error: Error?
@@ -48,25 +48,25 @@ class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     }
 }
 
+enum CaptureState {
+    case on, off
+}
+
+enum HasPermissionResult {
+    case granted
+    case denied
+    case notDetermined
+}
+
 final class Camera: ObservableObject {
-    var captureSession: AVCaptureSession = AVCaptureSession()
+    let captureSession: AVCaptureSession = AVCaptureSession()
+    let photoCaptureHandler: AVCapturePhotoDelegate = AVCapturePhotoDelegate()
     @Published var permissionGranted: AVAuthorizationStatus = .notDetermined
     @Published var errorMessage: String? = nil
-
-    private let photoCaptureHandler: AVCapturePhotoDelegate = AVCapturePhotoDelegate()
 
     // Retain the single photo output that is added to the session.
     private var photoOutput: AVCapturePhotoOutput? = nil
 
-    enum CaptureState {
-        case on, off
-    }
-
-    enum HasPermissionResult {
-        case granted
-        case denied
-        case notDetermined
-    }
     // Internal state variables
     private var sessionConfigured: Bool = false
     private var deviceDisconnectionObserver: NSObjectProtocol? = nil
@@ -240,26 +240,6 @@ extension Camera {
         self.photoOutput = nil
         self.photoCaptureHandler.cameraOutput = AVCapturePhotoOutput()
 
-        guard captureSession.isRunning else {
-            // Even if not running, ensure we clear configuration artifacts
-            captureSession.beginConfiguration()
-            for input in captureSession.inputs {
-                captureSession.removeInput(input)
-            }
-            for output in captureSession.outputs {
-                captureSession.removeOutput(output)
-            }
-            captureSession.commitConfiguration()
-            sessionConfigured = false
-
-            if let observer = deviceDisconnectionObserver {
-                NotificationCenter.default.removeObserver(observer)
-                deviceDisconnectionObserver = nil
-            }
-            currentDevice = nil
-            return
-        }
-
         captureSession.beginConfiguration()
         for input in captureSession.inputs {
             captureSession.removeInput(input)
@@ -280,7 +260,7 @@ extension Camera {
 
 // MARK: - Device selection helper (include only if you don't already have one)
 extension Camera {
-    static func bestDevice() -> AVCaptureDevice? {
+    public static func bestDevice() -> AVCaptureDevice? {
         if let primary = AVCaptureDevice.default(for: .video) {
             return primary
         }

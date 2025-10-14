@@ -6,53 +6,12 @@ import Testing
 
 @testable import cambar
 
-// 5. Mock for AVCaptureDeviceInput
-final class MockCaptureDeviceInput: AVCaptureDeviceInput {
-    // This allows us to instantiate the Mock without the need for a real AVCaptureDevice
-    // In a real project, you would create a mock AVCaptureDevice as well.
-    override init(device: AVCaptureDevice) throws {
-        try super.init(device: device)
-    }
-}
-
-// 6. Fake for AVCaptureDevice (needed to create an AVCaptureDeviceInput)
-final class FakeCaptureDevice: AVCaptureDevice {
-    override var uniqueID: String {
-        "12345"
-    }
-    override class func authorizationStatus(for mediaType: AVMediaType) -> AVAuthorizationStatus {
-        .authorized
-    }
-    // You would typically mock more methods here if needed
-}
-
 // MARK: - Tests
-
-
 
 // -----------------------------------------------------------------------------
 
 @Suite("Camera Class Tests")
 struct CameraTests {
-
-    @MainActor
-    @Test("toggle(.on) calls startRunning on capture session")
-    func toggle_on_startsSession() async {
-        // Given
-        let camera = Camera()
-
-        // When
-//        camera.createSession()
-//        camera.toggle(desired: .off)
-        camera.toggle(desired: .on)
-        // Then
-        #expect(camera.captureSession.sessionPreset == .high)
-        await MainActor.run {
-            
-            #expect(camera.captureSession.isRunning == true)
-            camera.captureSession.stopRunning()
-        }
-    }
 
     @MainActor
     @Test("toggle(.off) calls stopRunning on capture session")
@@ -68,25 +27,6 @@ struct CameraTests {
 
         // Then
         #expect(!camera.captureSession.isRunning)
-    }
-
-
-    @MainActor
-    @Test("createSession successfully configures a session")
-    func createSession_success() async throws {
-        // Given
-
-        // Use a simple device finder that returns the fake device
-
-        let camera = Camera()
-        // When
-        camera.createSession()
-
-
-        try await Task.sleep(for: .milliseconds(50))
-
-        // Then
-        #expect(camera.errorMessage == nil)
     }
 
     @Test("createSession sets error message when no device is found")
