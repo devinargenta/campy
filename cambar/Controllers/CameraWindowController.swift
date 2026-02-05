@@ -24,10 +24,11 @@ final class CameraWindowController: NSObject, NSWindowDelegate {
             contentRect: NSRect(x: 0, y: 0, width: 500, height: 300),
             styleMask: [],
             backing: .buffered,
-            defer: true
+            defer: false
         )
         win.title = title
         win.contentView = hosting.view
+
         win.styleMask = .utilityWindow
         win.backgroundColor = .clear
         win.isRestorable = false

@@ -12,6 +12,7 @@ import SwiftUI
 @MainActor
 struct CameraViewUIController: NSViewRepresentable {
     var captureSession: AVCaptureSession
+    var isMirrored: Bool
 
     func makeNSView(context: Context) -> NSView {
         let view = NSView(frame: .zero)
@@ -21,7 +22,7 @@ struct CameraViewUIController: NSViewRepresentable {
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.masksToBounds = true
         previewLayer.connection?.automaticallyAdjustsVideoMirroring = false
-        previewLayer.connection?.isVideoMirrored = true
+        previewLayer.connection?.isVideoMirrored = isMirrored
         previewLayer.backgroundColor = .clear
         previewLayer.frame = view.bounds
 
@@ -36,6 +37,17 @@ struct CameraViewUIController: NSViewRepresentable {
         // Update session if it has changed
         if previewLayer.session !== captureSession {
             previewLayer.session = captureSession
+        }
+
+        // Apply mirroring changes
+        if let connection = previewLayer.connection {
+            if connection.automaticallyAdjustsVideoMirroring {
+                connection.automaticallyAdjustsVideoMirroring = false
+            }
+            print(isMirrored, connection.isVideoMirrored)
+            if connection.isVideoMirrored != isMirrored {
+                connection.isVideoMirrored = isMirrored
+            }
         }
 
         // Keep the layer sized to the view

@@ -5,25 +5,31 @@
 //  Created by Devin Argenta on 7/22/25.
 //
 import AVKit
+import KeyboardShortcuts
 import NotificationCenter
 import SwiftUI
 
 struct CameraView: View {
-    @ObservedObject private var camera: Camera
-    @State private var isDoubleTapped = false
-
-    init(camera: Camera, isDoubleTapped: Bool = false) {
-        self.camera = camera
-        self.isDoubleTapped = isDoubleTapped
+    @ObservedObject var camera: Camera
+    @State private var isDoubleTapped: Bool = false
+    @State private var isMirrored: Bool = false
+    func didTap() {
+        withAnimation {
+            isDoubleTapped.toggle()
+            camera.capturePhoto()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    isDoubleTapped.toggle()
+                }
+            }
+        }
     }
-
     var body: some View {
         Group {
             if camera.errorMessage != nil {
                 errorStateView
             } else {
-                ZStack
-                {
+                ZStack {
                     ProgressView()
                     previewStateView
                 }
@@ -35,6 +41,15 @@ struct CameraView: View {
             RoundedRectangle(cornerRadius: Self.cornerRadius)
         }
         .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
+        .task {
+            KeyboardShortcuts.onKeyDown(for: .screenshot) { [self] in
+                withAnimation {
+                    DispatchQueue.main.async {
+                        self.didTap()
+                    }
+                }
+            }
+        }
 
     }
 }
@@ -42,35 +57,45 @@ struct CameraView: View {
 // MARK: - Subviews
 extension CameraView {
 
-    func didTap() {
-        withAnimation {
-            isDoubleTapped = true
-            camera.capturePhoto()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation {
-                    isDoubleTapped = false
-                }
-            }
+    var shortcutSettings: some View {
+        Section {
+            Text("CMD+Opt+K - Open / Close Cambar")
+            Text("CMD+Opt+P - Screenshot")
+        } header: {
+            Text("Shortcuts")
         }
-    }
 
+    }
     @MainActor
     var previewStateView: some View {
         ZStack {
-            CameraViewUIController(captureSession: camera.captureSession)
+            CameraViewUIController(captureSession: camera.captureSession, isMirrored: isMirrored)
                 .contextMenu {
                     Text("Double tap to screenshot (copied to clipboard)")
-                    Button("Refresh Connection / Retry") { [self] in
-                        // Safely reconfigure
-                        self.camera.toggle(desired: .off)
-                        self.camera.toggle(desired: .on)
-                        // Only turn on if the window is visible
+                    shortcutSettings
+                    Section(
+                        content: {
+                            Button("Toggle Mirroring") { [self] in
+                                self.isMirrored.toggle()
+                            }
+                            Button("Refresh Connection / Retry") { [self] in
+                                // Safely reconfigure
+                                self.camera.toggle(desired: .off)
+                                self.camera.toggle(desired: .on)
+                                // Only turn on if the window is visible
+                            }
+                        },
+                        header: {
+                            Text("Settings")
+                        }
+                    )
+                    Section {
+                        Button("Quit", action: { NSApp.terminate(nil) })
                     }
-                    Button("Quit", action: { NSApp.terminate(nil) })
                 }
                 .accessibilityIdentifier("CameraPreview")
 
-            ScreenshotOverlay(doubleTapped: $isDoubleTapped)
+            ScreenshotOverlay(isDoubleTapped: $isDoubleTapped)
                 .accessibilityIdentifier("ScreenshotOverlay")
         }
         .onTapGesture(count: 2) {

@@ -3,7 +3,6 @@ import AppKit
 final class StatusBarController {
     private let statusItem: NSStatusItem
     private let onClick: () -> Void
-
     // Simple throttle to avoid rapid repeated toggles
     private var isThrottling = false
     private let throttleInterval: Duration = .milliseconds(500)
@@ -22,7 +21,10 @@ final class StatusBarController {
             button.toolTip = "Show/Hide Cambar"
             button.target = self
             button.action = #selector(handleClick)
+            button.ignoresMultiClick = true
+            button.keyEquivalent = "."
         }
+
     }
 
     @objc func handleClick() {

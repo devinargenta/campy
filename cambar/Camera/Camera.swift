@@ -2,52 +2,6 @@ import AVFoundation
 import AVKit
 import SwiftUI
 
-public class AVCapturePhotoDelegate: NSObject, AVCapturePhotoCaptureDelegate {
-    // This output must be the same instance that is added to the session.
-    var cameraOutput = AVCapturePhotoOutput()
-
-    // MARK: Capture Photo
-
-    public func capturePhoto() {
-        // Ensure this output has an active connection before capturing.
-        guard cameraOutput.connections.isEmpty == false else {
-            print("AVCapturePhotoDelegate: No active connections on photo output.")
-            return
-        }
-        let settings = AVCapturePhotoSettings()
-        cameraOutput.capturePhoto(with: settings, delegate: self)
-    }
-
-    // MARK: Copy Photo (uses injected pasteboard)
-
-    func copyPhotoToClipboard(_ image: NSImage) {
-        let pb = NSPasteboard.general
-        pb.clearContents()
-        pb.writeObjects([image])
-    }
-
-    // MARK: Stream Photo Output
-
-    public func photoOutput(
-        _ output: AVCapturePhotoOutput,
-        didFinishProcessingPhoto photo: AVCapturePhoto,
-        error: Error?
-    ) {
-        if let error = error {
-            print("Photo capture error: \(error.localizedDescription)")
-        }
-
-        guard let data = photo.fileDataRepresentation(),
-            let image = NSImage(data: data)
-        else {
-            print("unable to capture, image or data were null")
-            return
-        }
-
-        copyPhotoToClipboard(image)
-    }
-}
-
 enum CaptureState {
     case on, off
 }
@@ -58,19 +12,19 @@ enum HasPermissionResult {
     case notDetermined
 }
 
-final class Camera: ObservableObject {
+class Camera: ObservableObject {
     let captureSession: AVCaptureSession = AVCaptureSession()
     let photoCaptureHandler: AVCapturePhotoDelegate = AVCapturePhotoDelegate()
     @Published var permissionGranted: AVAuthorizationStatus = .notDetermined
     @Published var errorMessage: String? = nil
 
     // Retain the single photo output that is added to the session.
-    private var photoOutput: AVCapturePhotoOutput? = nil
+    var photoOutput: AVCapturePhotoOutput? = nil
 
     // Internal state variables
-    private var sessionConfigured: Bool = false
-    private var deviceDisconnectionObserver: NSObjectProtocol? = nil
-    private var currentDevice: AVCaptureDevice? = nil
+    var sessionConfigured: Bool = false
+    var deviceDisconnectionObserver: NSObjectProtocol? = nil
+    var currentDevice: AVCaptureDevice? = nil
 
     // MARK: Public Controls
 
@@ -161,7 +115,6 @@ final class Camera: ObservableObject {
     {
         captureSession.beginConfiguration()
         captureSession.sessionPreset = .high
-
         // Inputs
         if captureSession.canAddInput(input) {
             captureSession.addInput(input)
@@ -230,31 +183,6 @@ final class Camera: ObservableObject {
 
         }
         return permissionGranted
-    }
-}
-
-extension Camera {
-    // Remove inputs/outputs and observers on the session queue
-    internal func teardownSessionLocked() {
-        // Clear retained output reference so a fresh one can be configured later
-        self.photoOutput = nil
-        self.photoCaptureHandler.cameraOutput = AVCapturePhotoOutput()
-
-        captureSession.beginConfiguration()
-        for input in captureSession.inputs {
-            captureSession.removeInput(input)
-        }
-        for output in captureSession.outputs {
-            captureSession.removeOutput(output)
-        }
-        captureSession.commitConfiguration()
-        sessionConfigured = false
-
-        if let observer = deviceDisconnectionObserver {
-            NotificationCenter.default.removeObserver(observer)
-            deviceDisconnectionObserver = nil
-        }
-        currentDevice = nil
     }
 }
 

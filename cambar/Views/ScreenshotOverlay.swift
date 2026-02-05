@@ -10,19 +10,21 @@ import NotificationCenter
 import SwiftUI
 
 struct ScreenshotOverlay: View {
-    @Binding var doubleTapped: Bool
+    @Binding var isDoubleTapped: Bool
     var body: some View {
         ZStack(alignment: .top) {
             RoundedRectangle(cornerRadius: Self.cornerRadius)
                 .strokeBorder(
-                    lineWidth: doubleTapped ? Self.strokeWidth : 0,
+                    lineWidth: isDoubleTapped ? Self.strokeWidth : 0,
                     antialiased: true
                 )
                 .padding(Self.padding)
-                .animation(Self.animation, value: doubleTapped)
+                .animation(Self.animation, value: isDoubleTapped)
                 .foregroundColor(Self.foregroundColor)
-                .opacity(doubleTapped ? 1 : 0)
+                .opacity(isDoubleTapped ? 1 : 0)
 
+        }.onChange(of: isDoubleTapped){
+            print(isDoubleTapped)
         }
     }
 }

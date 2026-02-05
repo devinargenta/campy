@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E5E04FD2EA69567009EC91B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E86D5EE2E12F25000E07749 /* AVFoundation.framework */; };
+		9E913E452EA14FD2007F4010 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 9E913E442EA14FD2007F4010 /* KeyboardShortcuts */; };
 		9EC1F2C72E9852ED0010D03D /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC1F2C62E9852ED0010D03D /* Testing.framework */; };
 		9EC1F2C82E9852ED0010D03D /* Testing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC1F2C62E9852ED0010D03D /* Testing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9EE27639299427130014163B /* cambar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE27638299427130014163B /* cambar.swift */; };
 		9EE2763D299427130014163B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2763C299427130014163B /* Assets.xcassets */; };
-		9EF6C1F12E2557930084A5B5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E86D5EE2E12F25000E07749 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +82,8 @@
 		9EE27632299427130014163B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				9EF6C1F12E2557930084A5B5 /* AVFoundation.framework in Frameworks */,
+				9E5E04FD2EA69567009EC91B /* AVFoundation.framework in Frameworks */,
+				9E913E452EA14FD2007F4010 /* KeyboardShortcuts in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -179,6 +181,9 @@
 				9EAB7DC22E98204200216133 /* Controllers */,
 			);
 			name = cambar;
+			packageProductDependencies = (
+				9E913E442EA14FD2007F4010 /* KeyboardShortcuts */,
+			);
 			productName = camprey;
 			productReference = 9EE27635299427130014163B /* cambar.app */;
 			productType = "com.apple.product-type.application";
@@ -192,7 +197,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				CLASSPREFIX = com.stdev;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = stdev;
 				TargetAttributes = {
 					9EC1F2BA2E9851EA0010D03D = {
@@ -212,6 +217,9 @@
 				Base,
 			);
 			mainGroup = 9EE2762C299427130014163B;
+			packageReferences = (
+				9E913E432EA14FD2007F4010 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = 9EE27636299427130014163B /* Products */;
 			projectDirPath = "";
@@ -311,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -375,6 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -576,6 +586,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9E913E432EA14FD2007F4010 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E913E442EA14FD2007F4010 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E913E432EA14FD2007F4010 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9EE2762D299427130014163B /* Project object */;
 }
